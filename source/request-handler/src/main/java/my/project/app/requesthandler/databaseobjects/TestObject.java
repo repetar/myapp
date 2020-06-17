@@ -1,4 +1,4 @@
-package my.project.app.traffichandler.databaseobjects;
+package my.project.app.requesthandler.databaseobjects;
 
 public class TestObject {
 

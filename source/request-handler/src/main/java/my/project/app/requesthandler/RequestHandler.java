@@ -1,20 +1,18 @@
-package my.project.app.traffichandler;
+package my.project.app.requesthandler;
 
 import com.mongodb.*;
 import com.mongodb.DBCollection;
 
 import java.net.InetAddress;
 
-import com.mongodb.client.MongoDatabase;
-import my.project.app.traffichandler.databaseobjects.TestObject;
+import my.project.app.requesthandler.databaseobjects.TestObject;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
-public class TrafficHandler {
+public class RequestHandler {
 
     private static DBObject createDBObject(TestObject to) {
         BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();

@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>source/traffic-handler</module>
+        <module>source/request-handler</module>
     </modules>
 
 

@@ -1,1 +1,0 @@
-package my.project.app.traffichandler.databaseobjects;
