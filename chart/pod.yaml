@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: traffic-handler
+spec:
+  containers:
+    - name: traffic-handler
+      image: my.project.app.traffichandler:1.0.0
+      command: [ "/bin/bash", "-c", "java -cp /usr/src/app/*:/usr/src/app/dependency/* my.project.app.traffichandler.TrafficHandler" ]
+      args: [ "while true; do sleep 30; done;" ]
+
+
+
+
