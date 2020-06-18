@@ -4,6 +4,7 @@ import com.mongodb.*;
 
 import my.project.app.requesthandler.databaseconnector.DatabaseConnector;
 import my.project.app.requesthandler.databaseobjects.TestObject;
+import my.project.app.requesthandler.httpserver.HttpServer;
 
 public class RequestHandler {
 
@@ -12,6 +13,16 @@ public class RequestHandler {
 
 
         System.out.println("Hello!!!!!!!!!!!!!!!!!");
+
+        try (HttpServer httpServer = new HttpServer()) {
+            httpServer.start();
+            httpServer.join();
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.exit(1);
+
+        }
 
         DatabaseConnector dbc = new DatabaseConnector();
         dbc.connect();

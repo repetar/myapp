@@ -4,6 +4,10 @@ https://github.com/mongodb/mongodb-kubernetes-operator
 
 https://github.com/mongodb/mongo-java-driver
 
-mvn package  -Dcheckstyle.skip -Dpmd.skip=true
+mvn clean package  -Dcheckstyle.skip -Dpmd.skip=true
 
 docker build -t my.project.app.requesthandler:1.0.0 source/request-handler/ --no-cache
+
+k apply -f chart/pod.yaml
+
+curl -X GET localhost:8080/app/endpoints/v1/test
