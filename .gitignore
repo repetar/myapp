@@ -5,5 +5,4 @@ target/*
 
 mongo.iml
 
-source/traffic-handler/target/*
-
+source/request-handler/target/*

@@ -1,6 +1,9 @@
 package my.project.app.requesthandler.databaseobjects;
 
-public class TestObject {
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBObject;
+
+public class TestObject implements IDatabaseObject {
 
     private int att1;
 
@@ -15,6 +18,16 @@ public class TestObject {
         this.att2 = att2;
         this.att3 = att3;
         this.att4 = att4;
+    }
+
+    public DBObject createDBObject() {
+        BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
+
+        docBuilder.append("att1", this.getAtt1());
+        docBuilder.append("att2", this.getAtt2());
+        docBuilder.append("att3", this.getAtt3());
+        docBuilder.append("att4", this.isAtt4());
+        return docBuilder.get();
     }
 
     public int getAtt1() {
