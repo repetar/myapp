@@ -6,3 +6,8 @@ target/*
 mongo.iml
 
 source/request-handler/target/*
+
+source/request-handler/request-handler.iml
+source/request-handler-api/request-handler-api.iml
+source/request-handler-api/target/*
+application.iml

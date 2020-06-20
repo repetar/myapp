@@ -1,0 +1,48 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'Request Handler Interface'
+  description: 'Request Handler Interface Specification'
+servers:
+  - url: http://{apiRoot}
+paths:
+  '/getTestObject':
+    get:
+      summary: Get an object from database
+      operationId: getDbObject
+      responses:
+        '200':
+          description: Requested object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestObject'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+components:
+  schemas:
+    TestObject:
+      type: object
+      required:
+        - att1
+        - att2
+        - att3
+        - att4
+      properties:
+        att1:
+          type: integer
+        att2:
+          type: integer
+        att3:
+          type: string
+        att4:
+          type: boolean
+    ErrorDetails:
+      type: object
+      properties:
+        summary:
+          type: string

@@ -11,6 +11,7 @@
 
     <modules>
         <module>source/request-handler</module>
+        <module>source/request-handler-api</module>
     </modules>
 
 
