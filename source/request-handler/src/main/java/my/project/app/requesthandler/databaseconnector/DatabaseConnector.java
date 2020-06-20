@@ -61,14 +61,14 @@ public class DatabaseConnector {
     public void read(final String database, final String collection, final DBObject query) {
 
         // read
-        System.out.println("### READ");
+        System.out.println("### READ query:" + query.toString());
         DB db = this.mongoClient.getDB(database);
         DBCollection col = db.getCollection(collection);
         DBCursor cursor = col.find(query);
+        System.out.println("cursor size: " + cursor.size());
         while(cursor.hasNext()){
             System.out.println(cursor.next());
         }
-
     }
 
     public void update(final String database, final String collection, final DBObject query, final IDatabaseObject dbObject) {

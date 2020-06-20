@@ -10,4 +10,4 @@ docker build -t my.project.app.requesthandler:1.0.0 source/request-handler/ --no
 
 k apply -f chart/pod.yaml
 
-curl -X GET localhost:8080/app/endpoints/v1/test
+curl -X GET localhost:8080/app/endpoints/v1/getTestObject

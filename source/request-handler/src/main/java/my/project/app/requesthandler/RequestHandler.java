@@ -14,6 +14,30 @@ public class RequestHandler {
 
         System.out.println("Hello!!!!!!!!!!!!!!!!!");
 
+        DatabaseConnector dbc = new DatabaseConnector();
+        dbc.connect();
+        TestObject to = new TestObject(111, 2, "teststring", true);
+        dbc.create("mytestdb", "testcollection", to);
+
+        DBObject query = BasicDBObjectBuilder.start().add("att1", to.getAtt1()).get();
+        dbc.read("mytestdb", "testcollection", query);
+
+        query = BasicDBObjectBuilder.start().add("att1", 111).get();
+        dbc.read("mytestdb", "testcollection", query);
+
+
+        TestObject to1 = new TestObject(222, 2, "teststring", true);
+        dbc.create("mytestdb", "testcollection", to1);
+
+        query = BasicDBObjectBuilder.start().add("att1", to1.getAtt1()).get();
+        dbc.read("mytestdb", "testcollection", query);
+
+        query = BasicDBObjectBuilder.start().add("att1", 222).get();
+        dbc.read("mytestdb", "testcollection", query);
+
+        to.setAtt1(6554);
+        dbc.update("mytestdb", "testcollection", query, to);
+
         try (HttpServer httpServer = new HttpServer()) {
             httpServer.start();
             httpServer.join();
@@ -23,17 +47,6 @@ public class RequestHandler {
             System.exit(1);
 
         }
-
-        DatabaseConnector dbc = new DatabaseConnector();
-        dbc.connect();
-        TestObject to = new TestObject(1, 2, "teststring", true);
-        dbc.create("mytestdb", "testcollection", to);
-
-        DBObject query = BasicDBObjectBuilder.start().add("att1", to.getAtt1()).get();
-        dbc.read("mytestdb", "testcollection", query);
-
-        to.setAtt1(6554);
-        dbc.update("mytestdb", "testcollection", query, to);
 
         dbc.delete("mytestdb", "testcollection", query);
 
