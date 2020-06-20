@@ -1,7 +1,7 @@
 package my.project.app.requesthandler.databaseobjects;
 
 import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DBObject;
+import com.mongodb.BasicDBObject;
 
 import java.time.Period;
 import java.util.Date;
@@ -12,15 +12,54 @@ import java.util.Date;
  */
 public class Discount implements IDatabaseObject {
 
+    BasicDBObject basicDBO = new BasicDBObject();
+
     private int discount;
 
     private Date startDate;
 
     private Period period;
 
-    public DBObject createDBObject() {
-        BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
-        return docBuilder.get();
+    private int productId;
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public BasicDBObject createDBObject() {
+        basicDBO.put("discount", this.getDiscount());
+        basicDBO.put("startDate", this.getStartDate());
+        basicDBO.put("period", this.getPeriod());
+        basicDBO.put("productId", this.getProductId());
+        return basicDBO;
     }
 
 }

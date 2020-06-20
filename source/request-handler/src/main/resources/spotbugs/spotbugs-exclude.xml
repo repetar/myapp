@@ -1,0 +1,25 @@
+<FindBugsFilter>
+    <!-- Ignore error triggered because of try-with-resources in Java 11 -->
+    <!-- https://github.com/spotbugs/spotbugs/issues/756 -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+        <Class name="my.project.app.requesthandler.databaseobjects.Order"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+        <Class name="my.project.app.requesthandler.databaseobjects.Order"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+        <Class name="my.project.app.requesthandler.databaseobjects.Discount"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+        <Class name="my.project.app.requesthandler.databaseobjects.Discount"/>
+    </Match>
+    <Match>
+        <Bug pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"/>
+        <Class name="my.project.app.requesthandler.databaseobjects.Product"/>
+    </Match>
+</FindBugsFilter>
+

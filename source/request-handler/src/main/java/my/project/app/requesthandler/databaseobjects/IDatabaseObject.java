@@ -1,8 +1,8 @@
 package my.project.app.requesthandler.databaseobjects;
 
-import com.mongodb.DBObject;
+import com.mongodb.BasicDBObject;
 
 public interface IDatabaseObject {
 
-    public DBObject createDBObject();
+    public BasicDBObject createDBObject();
 }

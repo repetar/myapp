@@ -21,20 +21,23 @@ public class RequestHandler {
         TestObject to = new TestObject(111, 3, "teststring", true);
         dbc.create(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, to);
 
-        DBObject query = BasicDBObjectBuilder.start().add("att1" , 111).add("attr2", 3).get();
+        BasicDBObject query = new BasicDBObject();
+        query.put("att1" , 111);
+        query.put("attr2", 3);
+
 
         dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
 
-        query = BasicDBObjectBuilder.start().add("att1", 111).get();
+        query.put("att1", 111);
         dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
 
         TestObject to1 = new TestObject(222, 2, "teststring", true);
         dbc.create(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, to1);
 
-        query = BasicDBObjectBuilder.start().add("att1", to1.getAtt1()).get();
+        query.put("att1", to1.getAtt1());
         dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
 
-        query = BasicDBObjectBuilder.start().add("att1", 222).get();
+        query.put("att1", 222);
         dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
 
         to.setAtt1(6554);

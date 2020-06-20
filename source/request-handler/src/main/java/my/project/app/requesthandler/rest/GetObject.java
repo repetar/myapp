@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
 import my.project.app.requesthandler.databaseconnector.DatabaseConnector;
 
@@ -48,8 +48,10 @@ public class GetObject {
 
         // prepare and execute query
         my.project.app.requesthandler.databaseobjects.TestObject to = new TestObject(111, 2, "teststring", true);
-        DBObject query = BasicDBObjectBuilder.start().add("att1", to.getAtt1()).get();
-        DBObject q1 = (DBObject) JSON.parse(attributes);
+        BasicDBObject q1 = (BasicDBObject) JSON.parse(attributes);
+        BasicDBObject query = new BasicDBObject();
+        query.put("att1", to.getAtt1());
+        query.put("attr2", 3);
 
         System.out.print("query: " + query.toString() + "   q1:" + q1.toString() + " running q1");
         DBCursor c = dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, q1);
@@ -58,7 +60,7 @@ public class GetObject {
         List<TestObject> tos = new ArrayList<TestObject>();
 
         while(c.hasNext()){
-            DBObject dbo = c.next();
+            BasicDBObject dbo = (BasicDBObject) c.next();
             TestObject too = new TestObject((int)dbo.get("att1"), (int)dbo.get("att2"), (String)dbo.get("att3"), (boolean)dbo.get("att4"));
             tos.add(too);
         }

@@ -1,12 +1,14 @@
 package my.project.app.requesthandler.databaseobjects;
 
 import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DBObject;
+import com.mongodb.BasicDBObject;
 
 import java.time.Period;
 import java.util.Date;
 
 public class Product implements IDatabaseObject {
+
+    BasicDBObject basicDBO = new BasicDBObject();
 
     private String productName;
 
@@ -18,49 +20,50 @@ public class Product implements IDatabaseObject {
 
     public Product(final String productName,
                    final float productPrice,
-                   final String productDescription,
-                   final int availableQuantity) {
+                   final String productDescription) {
 
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
-        this.availableQuantity = availableQuantity;
-
-    }
-
-    public void setProductName(final String productName) {
-        this.productName = productName;
     }
 
     public String getProductName() {
-        return this.productName;
+        return productName;
     }
 
-    public void setProductPrice(final float productPrice) { this.productPrice = productPrice; }
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
     public float getProductPrice() {
-        return this.productPrice;
+        return productPrice;
     }
 
-    public void setProductDescription( final String productDescription) {
-        this.productDescription = productDescription;
+    public void setProductPrice(float productPrice) {
+        this.productPrice = productPrice;
     }
 
     public String getProductDescription() {
-        return this.productDescription;
+        return productDescription;
     }
 
-    public void setAvailableQuantity( final int availableQuantity) {
-        this.availableQuantity = availableQuantity;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
-    public int getAvailableQuantity() {
-        return this.availableQuantity;
+    public Quantity getQuantity() {
+        return quantity;
     }
 
-    public DBObject createDBObject() {
-        BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
-        return docBuilder.get();
+    public void setQuantity(Quantity quantity) {
+        this.quantity = quantity;
     }
 
+    public BasicDBObject createDBObject() {
+        basicDBO.put("productName", this.getProductName());
+        basicDBO.put("productPrice", this.getProductPrice());
+        basicDBO.put("productDescription", this.getProductDescription());
+        basicDBO.put("quantity", this.quantity.createDBObject());
+        return basicDBO;
+    }
 }
