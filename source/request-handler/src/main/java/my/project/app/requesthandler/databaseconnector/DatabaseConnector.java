@@ -11,38 +11,48 @@ import java.util.List;
 
 public class DatabaseConnector {
 
-    InetAddress[] mongoPods;
+    private static volatile DatabaseConnector instance;
+
     MongoClient mongoClient;
 
-    public DatabaseConnector() {
+    private DatabaseConnector() {
+        this.connect();
+    }
 
+    public static DatabaseConnector getInstance() {
 
+        if (instance == null) {
+            synchronized (DatabaseConnector.class) {
+                if (instance == null) {
+                    instance = new DatabaseConnector();
+                }
+            }
+        }
+        return instance;
     }
 
     public void connect() {
 
+        InetAddress[] mongoPods = null;
         try {
             mongoPods = InetAddress.getAllByName("example-mongodb-svc");
 
         } catch (UnknownHostException e) {
             System.out.println("Exception while getting mongo pods:" + e);
+            // what to do if this fails??
 
         }
 
-        List list = new ArrayList();
+        List serverList = new ArrayList();
 
         for (InetAddress address : mongoPods) {
-            //mongoAddresses.add(address.getHostAddress());
-            list.add(new ServerAddress(address.getHostAddress(), 27017));
-
+            serverList.add(new ServerAddress(address.getHostAddress(), 27017));
         }
 
-        mongoClient = new MongoClient(list);
-
+        mongoClient = new MongoClient(serverList);
     }
 
     public void create(final String database, final String collection, final IDatabaseObject dbObject) {
-
 
         System.out.println("### CREATE");
         DB db = this.mongoClient.getDB(database);
@@ -56,6 +66,7 @@ public class DatabaseConnector {
         System.out.println(result.isUpdateOfExisting());
         System.out.println(result.wasAcknowledged());
 
+
     }
 
     public DBCursor read(final String database, final String collection, final DBObject query) {
@@ -67,7 +78,6 @@ public class DatabaseConnector {
         DBCursor cursor = col.find(query);
         System.out.println("cursor size: " + cursor.size());
         return cursor;
-
     }
 
     public void update(final String database, final String collection, final DBObject query, final IDatabaseObject dbObject) {

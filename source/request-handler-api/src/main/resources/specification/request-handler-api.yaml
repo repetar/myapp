@@ -6,7 +6,7 @@ info:
 servers:
   - url: http://{apiRoot}
 paths:
-  '/getTestObject':
+  '/getObject':
     get:
       summary: Get an object from database
       operationId: getDbObject
