@@ -15,3 +15,14 @@ k apply -f chart/pod.yaml
 curl -X GET localhost:8080/app/endpoints/v1/getObject
 
 curl -X GET -H "Content-Type:application/json" -d '{ "att1": 111, "att2": 2 }' localhost:8080/app/endpoints/v1/getObject
+
+curl -X GET -H "Content-Type:application/json" -d '{ "category": "category1" }' localhost:8080/app/endpoints/v1/getProducts
+
+curl -X GET  localhost:8080/app/endpoints/v1/getProducts
+
+# create new products
+curl -X POST -H "Content-Type:application/json" -d '[{"quantity":{"availableQuantity":8765,"productId":111,"soldQuantity":9},"productId":111,"category":"category2","productName":"product1","productPrice":100,"productDescription":"first product"},{"quantity":{"availableQuantity":8765,"productId":111,"soldQuantity":9},"productId":344,"category":"category2","productName":"product2","productPrice":100,"productDescription":"first product"}]' localhost:8080/app/endpoints/v1/products
+
+# get products
+
+curl -X GET -H "Content-Type:application/json" -d '{ "productDescription":"to be deleted"}' localhost:8080/app/endpoints/v1/products

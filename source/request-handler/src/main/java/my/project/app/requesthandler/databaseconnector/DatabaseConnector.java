@@ -47,11 +47,17 @@ public class DatabaseConnector {
         mongoClient = new MongoClient(serverList);
     }
 
-    public void create(final String database, final String collection, final IDatabaseObject BasicDBObject) {
+    public void create(final String database, final String collection, final IDatabaseObject dbObject) {
 
         System.out.println("### CREATE");
-        BasicDBObject dbo = BasicDBObject.createDBObject();
+        BasicDBObject dbo = dbObject.createDBObject();
         this.mongoClient.getDB(database).getCollection(collection).insert(dbo);
+    }
+
+    public DBCursor read(final String database, final String collection) {
+
+        // read
+        return this.mongoClient.getDB(database).getCollection(collection).find();
     }
 
     public DBCursor read(final String database, final String collection, final BasicDBObject query) {
@@ -59,6 +65,13 @@ public class DatabaseConnector {
         // read
         System.out.println("### READ query:" + query.toString());
         return this.mongoClient.getDB(database).getCollection(collection).find(query);
+    }
+
+    public DBCursor read(final String database, final String collection, final BasicDBObject query, final BasicDBObject projection) {
+
+        // read
+        System.out.println("### READ query:" + query.toString());
+        return this.mongoClient.getDB(database).getCollection(collection).find(query, projection);
     }
 
     public void update(final String database, final String collection, final BasicDBObject query, final IDatabaseObject BasicDBObject) {

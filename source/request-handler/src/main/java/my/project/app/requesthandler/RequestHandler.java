@@ -1,12 +1,17 @@
 package my.project.app.requesthandler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.*;
 
-import com.mongodb.util.JSON;
 import my.project.app.requesthandler.databaseconnector.DatabaseConnector;
+import my.project.app.requesthandler.databaseobjects.Product;
+import my.project.app.requesthandler.databaseobjects.Quantity;
 import my.project.app.requesthandler.databaseobjects.TestObject;
 import my.project.app.requesthandler.httpserver.HttpServer;
 import my.project.app.requesthandler.utils.Constants;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class RequestHandler {
 
@@ -16,6 +21,7 @@ public class RequestHandler {
 
         System.out.println("Hello!!!!!!!!!!!!!!!!!");
 
+        DBCursor cursor;
         DatabaseConnector dbc = DatabaseConnector.getInstance();
 
         TestObject to = new TestObject(111, 3, "teststring", true);
@@ -23,25 +29,67 @@ public class RequestHandler {
 
         BasicDBObject query = new BasicDBObject();
         query.put("att1" , 111);
-        query.put("attr2", 3);
-
 
         dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
 
         query.put("att1", 111);
-        dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
+        cursor = dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
+        while(cursor.hasNext()){
+            BasicDBObject dbo = (BasicDBObject) cursor.next();
+            System.out.println("dbo to string" + dbo.toString());
+            System.out.println("dbo to json" + dbo.toJson());
+        }
+        System.out.println("###############################################################");
 
-        TestObject to1 = new TestObject(222, 2, "teststring", true);
-        dbc.create(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, to1);
+        dbc.create(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, to);
 
-        query.put("att1", to1.getAtt1());
-        dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
+        query.put("att1", to.getAtt1());
+        cursor = dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
+        System.out.println("cursor size:" + cursor.size());
+        while(cursor.hasNext()){
+            BasicDBObject dbo = (BasicDBObject) cursor.next();
+            System.out.println("dbo to string" + dbo.toString());
+            System.out.println("dbo to json" + dbo.toJson());
+        }
+        System.out.println("###############################################################");
 
         query.put("att1", 222);
-        dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
+        cursor = dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
+        while(cursor.hasNext()){
+            BasicDBObject dbo = (BasicDBObject) cursor.next();
+            System.out.println("dbo to string" + dbo.toString());
+            System.out.println("dbo to json" + dbo.toJson());
+        }
+        System.out.println("###############################################################");
+
 
         to.setAtt1(6554);
         dbc.update(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query, to);
+
+
+
+        ////////////////////////////////////////////////////////////////7
+
+        Quantity product1quantity = new Quantity(111, 8765L, 9L );
+        Product product1 = new Product(111,"product1",  100, "category2", "first product", product1quantity);
+        Product product2 = new Product(344,"product2",  100, "category2", "first product", product1quantity);
+
+       // dbc.create(Constants.PRODUCT_DATABASE, Constants.PRODUCT_COLLECTION, product1);
+        JSONArray ja = new JSONArray();
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JSONObject jo = new JSONObject(mapper.writeValueAsString(product1));
+            System.out.println("product listing: " + jo.toString());
+            ja.put(jo);
+            jo = new JSONObject(mapper.writeValueAsString(product2));
+            System.out.println("product listing: " + jo.toString());
+            ja.put(jo);
+        } catch (JsonProcessingException e) {
+            System.out.println("problem mapping json objects" + e);
+        }
+
+        System.out.println("json array: " + ja.toString());
 
         try (HttpServer httpServer = new HttpServer()) {
             httpServer.start();

@@ -3,6 +3,7 @@ package my.project.app.requesthandler.databaseobjects;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.BasicDBObject;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class Order implements  IDatabaseObject {
@@ -21,12 +22,26 @@ public class Order implements  IDatabaseObject {
 
     private Date deliveryDate;
 
+   // private int[] productId;
+
     /**
      * Instead of keeping a list of orders inside User class, to avoid growing arrays,
      * we will keep the userId inside of Order class.
      * Solving 1-to-N relations.
      */
-    private String userId;
+    private int userId;
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    //public int[] getProductId() {
+     //   return Arrays.copyOf(productId, productId.length);
+   // }
+
+   // public void setProductId(int []productId) {
+   //     this.productId =  Arrays.copyOf(productId, productId.length);
+   // }
 
     public String getOrderNumber() {
         return orderNumber;
@@ -76,12 +91,8 @@ public class Order implements  IDatabaseObject {
         this.deliveryDate = deliveryDate;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public BasicDBObject createDBObject() {
@@ -91,6 +102,7 @@ public class Order implements  IDatabaseObject {
         basicDBO.put("shipmentDate", this.getShipmentDate());
         basicDBO.put("expectedDeliveryDate", this.getExpectedDeliveryDate());
         basicDBO.put("deliveryDate", this.getDeliveryDate());
+      //  basicDBO.put("productId", this.getProductId());
         return basicDBO;
     }
 

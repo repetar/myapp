@@ -1,4 +1,4 @@
 package my.project.app.requesthandler.rest;
 
-public class UpdateObject {
+public class Users {
 }

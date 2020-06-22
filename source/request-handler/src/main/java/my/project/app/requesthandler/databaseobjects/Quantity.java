@@ -1,19 +1,47 @@
 package my.project.app.requesthandler.databaseobjects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mongodb.BasicDBObject;
+
+import java.beans.ConstructorProperties;
 
 public class Quantity implements IDatabaseObject{
 
     BasicDBObject basicDBO = new BasicDBObject();
 
-    private String product_id;
+    @JsonProperty("productId")
+    private int productId;
 
+    @JsonProperty("availableQuantity")
     private Long availableQuantity;
 
+    @JsonProperty("soldQuantity")
     private Long soldQuantity;
 
-    public String getProduct_id() {
-        return product_id;
+    public Quantity (BasicDBObject dbObject) {
+
+        this.productId = dbObject.getInt("productId");
+        this.availableQuantity = dbObject.getLong("availableQuantity");
+        this.soldQuantity = dbObject.getLong("soldQuantity");
+    }
+
+    @ConstructorProperties({"productId",
+            "availableQuantity",
+            "soldQuantity"})
+    public Quantity(int productId,
+                    Long availableQuantity,
+                    Long soldQuantity) {
+        this.productId = productId;
+        this.availableQuantity = availableQuantity;
+        this.soldQuantity = soldQuantity;
+    }
+
+    public Quantity(Quantity quantity) {
+        this(quantity.getProductId(), quantity.getAvailableQuantity(), quantity.getSoldQuantity());
+    }
+
+    public int getProductId() {
+        return productId;
     }
 
     public Long getAvailableQuantity() {
@@ -24,8 +52,8 @@ public class Quantity implements IDatabaseObject{
         return soldQuantity;
     }
 
-    public void setProduct_id(String product_id) {
-        this.product_id = product_id;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public void setAvailableQuantity(Long availableQuantity) {
@@ -37,7 +65,7 @@ public class Quantity implements IDatabaseObject{
     }
 
     public BasicDBObject createDBObject() {
-        basicDBO.put("product_id", this.getProduct_id());
+        basicDBO.put("productId", this.getProductId());
         basicDBO.put("availableQuantity", this.getAvailableQuantity());
         basicDBO.put("soldQuantity", this.getSoldQuantity());
         return basicDBO;
