@@ -3,6 +3,7 @@ package my.project.app.requesthandler.databaseconnector;
 import com.mongodb.*;
 import my.project.app.requesthandler.databaseobjects.IDatabaseObject;
 import my.project.app.requesthandler.databaseobjects.TestObject;
+import my.project.app.requesthandler.utils.Constants;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -74,12 +75,19 @@ public class DatabaseConnector {
         return this.mongoClient.getDB(database).getCollection(collection).find(query, projection);
     }
 
-    public void update(final String database, final String collection, final BasicDBObject query, final IDatabaseObject BasicDBObject) {
+    public void update(final String database, final String collection, final BasicDBObject searchQuery, final IDatabaseObject dbObject) {
 
         //update example
         System.out.println("### UPDATE");
-        BasicDBObject dbo = BasicDBObject.createDBObject();
-        this.mongoClient.getDB(database).getCollection(collection).update(query, dbo);
+        BasicDBObject dbo = dbObject.createDBObject();
+        this.mongoClient.getDB(database).getCollection(collection).update(searchQuery, dbo);
+    }
+
+    public void update(final String database, final String collection, final BasicDBObject searchQuery, final BasicDBObject updateQuery) {
+
+        //update example
+        System.out.println("### UPDATE search query:" + searchQuery + " ; update query: " + updateQuery);
+        this.mongoClient.getDB(database).getCollection(collection).update(searchQuery, updateQuery);
     }
 
     public void delete(final String database, final String collection, final BasicDBObject query) {

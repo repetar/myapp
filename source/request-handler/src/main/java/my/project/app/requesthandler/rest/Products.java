@@ -1,14 +1,12 @@
 package my.project.app.requesthandler.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.util.JSON;
 import my.project.app.requesthandler.databaseconnector.DatabaseConnector;
 import my.project.app.requesthandler.databaseobjects.Product;
-import my.project.app.requesthandler.databaseobjects.TestObject;
 import my.project.app.requesthandler.utils.Constants;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -139,6 +137,25 @@ public class Products {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateProducts(final String parameters) {
+
+        // update given attribute for the product with the given productId
+        BasicDBObject query =(BasicDBObject) JSON.parse(parameters);
+        int productId = query.getInt("productId");
+
+        BasicDBObject searchQuery = new BasicDBObject();
+        searchQuery.append("productId", productId);
+
+        query.removeField("productId");
+
+        System.out.println("search query:" + searchQuery.toString());
+        System.out.println("update query:" + query.toString());
+
+        BasicDBObject updateQuery = new BasicDBObject();
+        updateQuery.append("$set", query);
+
+        DatabaseConnector dbc = DatabaseConnector.getInstance();
+        dbc.update(Constants.PRODUCT_DATABASE, Constants.PRODUCT_COLLECTION, searchQuery, updateQuery);
+
         return null;
     }
 
