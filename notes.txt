@@ -30,3 +30,11 @@ curl -X GET -H "Content-Type:application/json" -d '{ "productDescription":"to be
 curl -X GET -H "Content-Type:application/json" -d '{ "productId":5678}' localhost:8080/app/endpoints/v1/products
 
 curl -X PUT -H "Content-Type:application/json" -d '{ "productDescription":"finally", "productId":5678}' localhost:8080/app/endpoints/v1/products
+
+{"orderNumber":"122-543","productId":235,"expectedDeliveryDate":"23/06/2020 16:50:23","orderStatus":"IN_PROGRESS","shipmentDate":"23/06/2020 16:50:23","deliveryDate":"23/06/2020 16:50:23","orderDate":"23/06/2020 16:50:23","userId":9874}
+
+curl -X POST -H "Content-Type:application/json" -d '[{"orderNumber":"122-543","productId":235,"expectedDeliveryDate":"23/06/2020 16:50:23","orderStatus":"IN_PROGRESS","shipmentDate":"23/06/2020 16:50:23","deliveryDate":"23/06/2020 16:50:23","orderDate":"23/06/2020 16:50:23","userId":9874}]' localhost:8080/app/endpoints/v1/orders
+
+curl -X GET -H "Content-Type:application/json" -d '{"orderNumber":"122-543"}' localhost:8080/app/endpoints/v1/orders
+
+curl -X PUT -H "Content-Type:application/json" -d '{"orderNumber":"122-543", "expectedDeliveryDate":"23/06/3333 16:50:23"}'

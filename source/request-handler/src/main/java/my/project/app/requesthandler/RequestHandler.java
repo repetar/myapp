@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.*;
 
+import com.mongodb.util.JSON;
 import my.project.app.requesthandler.databaseconnector.DatabaseConnector;
+import my.project.app.requesthandler.databaseobjects.Order;
 import my.project.app.requesthandler.databaseobjects.Product;
 import my.project.app.requesthandler.databaseobjects.Quantity;
 import my.project.app.requesthandler.databaseobjects.TestObject;
@@ -12,6 +14,9 @@ import my.project.app.requesthandler.httpserver.HttpServer;
 import my.project.app.requesthandler.utils.Constants;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class RequestHandler {
 
@@ -91,6 +96,33 @@ public class RequestHandler {
 
         System.out.println("json array: " + ja.toString());
 
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String d = formatter.format(new Date());
+        Order o = new Order("122-345", d, Order.OrderStatus.IN_PROGRESS, d, d, d, 235, 9874d);
+
+        dbc.create(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, o);
+
+        BasicDBObject q1 = new BasicDBObject();
+        q1.put("orderNumber", o.getOrderNumber());
+        DBCursor c1 = dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, q1);
+        while(c1.hasNext()){
+            BasicDBObject dbo = (BasicDBObject) c1.next();
+            System.out.println("dbo to string" + dbo.toString());
+            System.out.println("dbo to json" + dbo.toJson());
+            ObjectMapper mp = new ObjectMapper();
+            Order oo = new Order(dbo);
+            try {
+                JSONObject obb = new JSONObject(mp.writeValueAsString(oo));
+                System.out.println("printing json object from object:" + obb);
+
+            } catch (JsonProcessingException e) {
+                System.out.println("problem mapping json objects" + e);
+            }
+
+        }
+
+
         try (HttpServer httpServer = new HttpServer()) {
             httpServer.start();
             httpServer.join();
@@ -100,6 +132,9 @@ public class RequestHandler {
             System.exit(1);
 
         }
+
+
+
 
         dbc.delete(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, query);
 
