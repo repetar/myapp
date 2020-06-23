@@ -6,10 +6,7 @@ import com.mongodb.*;
 
 import com.mongodb.util.JSON;
 import my.project.app.requesthandler.databaseconnector.DatabaseConnector;
-import my.project.app.requesthandler.databaseobjects.Order;
-import my.project.app.requesthandler.databaseobjects.Product;
-import my.project.app.requesthandler.databaseobjects.Quantity;
-import my.project.app.requesthandler.databaseobjects.TestObject;
+import my.project.app.requesthandler.databaseobjects.*;
 import my.project.app.requesthandler.httpserver.HttpServer;
 import my.project.app.requesthandler.utils.Constants;
 import org.json.JSONArray;
@@ -119,6 +116,34 @@ public class RequestHandler {
             } catch (JsonProcessingException e) {
                 System.out.println("problem mapping json objects" + e);
             }
+
+        }
+
+        System.out.println("######################################################################### user");
+        User u = new User(9987,"name", "surname", "099-876-5432", "user address somewhere");
+        dbc.create(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, u);
+        BasicDBObject q11 = new BasicDBObject();
+        q11.put("userId", u.getUserId());
+        c1 = dbc.read(Constants.DATABASE_NAME, Constants.COLLECTION_NAME, q11);
+
+        while(c1.hasNext()){
+            BasicDBObject dbo = (BasicDBObject) c1.next();
+            System.out.println("dbo to string" + dbo.toString());
+            System.out.println("dbo to json" + dbo.toJson());
+            ObjectMapper mp = new ObjectMapper();
+            User oo = new User(dbo);
+            try {
+                JSONObject obb = new JSONObject(mp.writeValueAsString(oo));
+                System.out.println("printing json object from object:" + obb);
+
+                User nu = mp.readValue(obb.toString(), User.class);
+                System.out.println(nu.getAddress());
+
+            } catch (JsonProcessingException e) {
+                System.out.println("problem mapping json objects" + e);
+            }
+
+
 
         }
 
