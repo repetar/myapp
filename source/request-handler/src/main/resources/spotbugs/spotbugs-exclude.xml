@@ -3,11 +3,11 @@
     <!-- https://github.com/spotbugs/spotbugs/issues/756 -->
     <Match>
         <Bug pattern="EI_EXPOSE_REP2"/>
-        <Class name="my.project.app.requesthandler.databaseobjects.Order"/>
+        <Class name="my.project.app.requesthandler.databaseobjects.dbobjects.Order"/>
     </Match>
     <Match>
         <Bug pattern="EI_EXPOSE_REP"/>
-        <Class name="my.project.app.requesthandler.databaseobjects.Order"/>
+        <Class name="my.project.app.requesthandler.databaseobjects.dbobjects.Order"/>
     </Match>
     <Match>
         <Bug pattern="EI_EXPOSE_REP2"/>
@@ -19,7 +19,7 @@
     </Match>
     <Match>
         <Bug pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"/>
-        <Class name="my.project.app.requesthandler.databaseobjects.Product"/>
+        <Class name="my.project.app.requesthandler.databaseobjects.dbobjects.Product"/>
     </Match>
 </FindBugsFilter>
 
