@@ -21,6 +21,10 @@ public class User {
 
     private String address;
 
+    public User() {
+
+    }
+
     public User(final String firstName,
                 final String lastName,
                 final String phoneNumber,

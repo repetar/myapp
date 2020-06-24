@@ -1,38 +1,16 @@
 package my.project.app.requesthandler.databaseobjects.dbobjecthandlers;
 
 import my.project.app.requesthandler.databaseobjects.dbobjects.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@EnableMongoRepositories(mongoTemplateRef = "mainMongoTemplate")
-@Repository
-public class UserHandler {
+import java.util.List;
 
-    private final MongoTemplate mongoTemplate;
+public interface UserHandler {
 
-    @Autowired
-    public UserHandler(final MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
-    }
+    List<User> findAll();
 
-    public void put(final User user) {
-        this.mongoTemplate.save(user);
-    }
+    void put(User user);
 
+    User findByName(String firstName);
 
-    public User getUser(final String id) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("id").is(id));
-
-        return this.mongoTemplate.findOne(query, User.class);
-    }
-
-    public void deleteUser(final User user) {
-        this.mongoTemplate.remove(user);
-    }
 }

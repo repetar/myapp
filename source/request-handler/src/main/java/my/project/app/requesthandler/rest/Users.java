@@ -1,15 +1,48 @@
-package my.project.app.requesthandler.rest;
+package com.student.information.system.controller;
 
+import my.project.app.requesthandler.databaseobjects.dbobjecthandlers.UserHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.dbobjects.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+//Required imports
+@RestController
+@RequestMapping("/users")
+public class Users {
 
-@RepositoryRestResource(collectionResourceRel = "users", path = "users")
-public interface Users extends MongoRepository<User, String> {
+    @Autowired
+    private UserHandlerImpl userHandler;
 
-    List<User> findByFirstName(@Param("firstName") String firstName);
+    @GetMapping(value = "/")
+    public List<User> getAllUsers() {
+        return userHandler.findAll();
+    }
+
+    /*
+    @GetMapping(value = "/{id}")
+    public User getStudentByStudentNumber(@PathVariable("id") String id) {
+        return userHandler.getById(id);
+    }
+
+
+     */
+
+    @PostMapping(value = "/")
+    public ResponseEntity<?> putUser(@RequestBody User user) {
+        userHandler.put(user);
+        return new ResponseEntity("Student added successfully", HttpStatus.OK);
+    }
+
+    /*
+    @DeleteMapping(value = "/{studentNumber}")
+    public void deleteStudent(@PathVariable Long studentNumber) {
+        studentService.deleteStudent(studentService.findByStudentNumber(studentNumber).getId());
+    }
+    */
+
 
 }

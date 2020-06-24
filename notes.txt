@@ -38,3 +38,7 @@ curl -X POST -H "Content-Type:application/json" -d '[{"orderNumber":"122-543","p
 curl -X GET -H "Content-Type:application/json" -d '{"orderNumber":"122-543"}' localhost:8080/app/endpoints/v1/orders
 
 curl -X PUT -H "Content-Type:application/json" -d '{"orderNumber":"122-543", "expectedDeliveryDate":"23/06/3333 16:50:23"}' localhost:8080/app/endpoints/v1/orders
+
+
+
+https://medium.com/javarevisited/building-a-rest-service-with-spring-boot-and-mongodb-3aa5cd2dce73

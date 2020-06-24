@@ -21,5 +21,9 @@
         <Bug pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"/>
         <Class name="my.project.app.requesthandler.databaseobjects.dbobjects.Product"/>
     </Match>
+    <Match>
+        <Bug pattern="URF_UNREAD_FIELD"/>
+        <Class name="my.project.app.requesthandler.databaseobjects.dbobjecthandlers.UserHandlerImpl"/>
+    </Match>
 </FindBugsFilter>
 

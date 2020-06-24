@@ -34,8 +34,7 @@ public class MongoConfiguration {
         return null;
     }
 
-    @Primary
-    @Bean(name = "mainMongoTemplate")
+    @Bean
     public MongoTemplate mongoTemplate() throws Exception {
         return new MongoTemplate(getClient(), "mytestdb");
     }
