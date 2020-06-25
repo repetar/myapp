@@ -40,4 +40,8 @@ public class UserHandlerImpl implements UserHandler {
         return userRepository.findByUserId(userId);
     }
 
+    public void deleteUser(String id) {
+        userRepository.deleteById(id);
+    }
+
 }

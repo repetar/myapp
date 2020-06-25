@@ -24,6 +24,11 @@ public class User {
 
     private String address;
 
+    // needed for POST and deserializing json info
+    public User() {
+
+    }
+
     public User(final String firstName,
                 final String lastName,
                 final String email,

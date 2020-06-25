@@ -25,48 +25,27 @@ public class Users {
     }
 
 
-    @GetMapping(value = "/{user_id}")
-    public User getUserByUserId(@PathVariable final String user_id) {
-        System.out.println("trying to find by id");
-        User uu = userHandler.findByUserId(user_id);
-        if (uu.getFirstName() != null) {
-          System.out.println("first name: " + uu.getFirstName() );
-        }
-        return uu;
-    }
-
-    @GetMapping(value = "/id/{id}")
+    @GetMapping(value = "/{id}")
     public User getUserById(@PathVariable final String id) {
         System.out.println("trying to find by id");
-        User uu = userHandler.findById(id);
-        if (uu.getFirstName() != null) {
-            System.out.println("first name: " + uu.getFirstName() );
-        }
-        return uu;
+        return userHandler.findById(id);
+
     }
 
-    @GetMapping(value = "/smtng")
-    public String getUserBySmtng() {
-        System.out.println("trying to find by id");
-        return "kjkjkkj";
-    }
-
-
-/*
-    @PostMapping(value = "/")
-    public ResponseEntity<?> putUser(@RequestBody User user) {
-
+    @PostMapping("/")
+    public ResponseEntity<?> putUser(@RequestBody final User user) {
         userHandler.put(user);
+        System.out.println("post user info: " + user.getId() + " : " + user.getFirstName() + " : " + user.getEmail());
         return new ResponseEntity("User added successfully", HttpStatus.OK);
     }
 
 
-    @DeleteMapping(value = "/{studentNumber}")
-    public void deleteStudent(@PathVariable Long studentNumber) {
-        //studentService.deleteStudent(studentService.findByStudentNumber(studentNumber).getId());
+    @DeleteMapping(value = "/{id}")
+    public void deleteStudent(@PathVariable final String id) {
+        userHandler.deleteUser(id);
     }
 
- */
+
 
 
 

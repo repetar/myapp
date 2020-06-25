@@ -12,5 +12,7 @@ public interface UserHandler {
 
     User findByUserId(String userId);
 
+    void deleteUser(String id);
+
 
 }
