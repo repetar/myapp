@@ -1,7 +1,7 @@
 package com.student.information.system.controller;
 
-import my.project.app.requesthandler.databaseobjects.dbobjects.user.UserHandlerImpl;
-import my.project.app.requesthandler.databaseobjects.dbobjects.user.User;
+import my.project.app.requesthandler.databaseobjects.user.UserHandlerImpl;
+import my.project.app.requesthandler.databaseobjects.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package my.project.app.requesthandler.databaseobjects.dbobjects.product;
+package my.project.app.requesthandler.databaseobjects.product;
 
-import my.project.app.requesthandler.databaseobjects.dbobjects.Quantity;
+import my.project.app.requesthandler.databaseobjects.Quantity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

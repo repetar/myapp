@@ -1,4 +1,4 @@
-package my.project.app.requesthandler.databaseobjects.dbobjects.user;
+package my.project.app.requesthandler.databaseobjects.user;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

@@ -1,4 +1,4 @@
-package my.project.app.requesthandler.databaseobjects.dbobjects.product;
+package my.project.app.requesthandler.databaseobjects.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

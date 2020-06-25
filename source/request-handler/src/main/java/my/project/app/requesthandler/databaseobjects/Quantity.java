@@ -1,4 +1,4 @@
-package my.project.app.requesthandler.databaseobjects.dbobjects;
+package my.project.app.requesthandler.databaseobjects;
 
 import org.springframework.data.annotation.Id;
 

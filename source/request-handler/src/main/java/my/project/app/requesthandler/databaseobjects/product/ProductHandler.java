@@ -1,6 +1,4 @@
-package my.project.app.requesthandler.databaseobjects.dbobjects.product;
-
-import my.project.app.requesthandler.databaseobjects.dbobjects.user.User;
+package my.project.app.requesthandler.databaseobjects.product;
 
 import java.util.List;
 

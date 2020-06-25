@@ -1,6 +1,5 @@
-package my.project.app.requesthandler.databaseobjects.dbobjects.product;
+package my.project.app.requesthandler.databaseobjects.product;
 
-import my.project.app.requesthandler.databaseobjects.dbobjects.user.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface ProductRepository extends MongoRepository<Product, String> {

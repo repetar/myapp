@@ -1,10 +1,10 @@
 package my.project.app.requesthandler;
-import my.project.app.requesthandler.databaseobjects.dbobjects.product.ProductHandler;
-import my.project.app.requesthandler.databaseobjects.dbobjects.product.ProductHandlerImpl;
-import my.project.app.requesthandler.databaseobjects.dbobjects.user.UserHandlerImpl;
-import my.project.app.requesthandler.databaseobjects.dbobjects.product.Product;
-import my.project.app.requesthandler.databaseobjects.dbobjects.Quantity;
-import my.project.app.requesthandler.databaseobjects.dbobjects.user.User;
+import my.project.app.requesthandler.databaseobjects.product.ProductHandler;
+import my.project.app.requesthandler.databaseobjects.product.ProductHandlerImpl;
+import my.project.app.requesthandler.databaseobjects.user.UserHandlerImpl;
+import my.project.app.requesthandler.databaseobjects.product.Product;
+import my.project.app.requesthandler.databaseobjects.Quantity;
+import my.project.app.requesthandler.databaseobjects.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
