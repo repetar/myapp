@@ -1,4 +1,4 @@
-package com.student.information.system.controller;
+package  my.project.app.requesthandler.rest;
 
 import my.project.app.requesthandler.databaseobjects.user.UserHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.user.User;
@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 //Required imports
 @RestController
@@ -19,30 +20,54 @@ public class Users {
 
     @GetMapping(value = "/")
     public List<User> getAllUsers() {
+        System.out.println("getting all users");
         return userHandler.findAll();
     }
 
-    /*
-    @GetMapping(value = "/{id}")
-    public User getStudentByStudentNumber(@PathVariable("id") String id) {
-        return userHandler.getById(id);
+
+    @GetMapping(value = "/{user_id}")
+    public User getUserByUserId(@PathVariable final String user_id) {
+        System.out.println("trying to find by id");
+        User uu = userHandler.findByUserId(user_id);
+        if (uu.getFirstName() != null) {
+          System.out.println("first name: " + uu.getFirstName() );
+        }
+        return uu;
+    }
+
+    @GetMapping(value = "/id/{id}")
+    public User getUserById(@PathVariable final String id) {
+        System.out.println("trying to find by id");
+        User uu = userHandler.findById(id);
+        if (uu.getFirstName() != null) {
+            System.out.println("first name: " + uu.getFirstName() );
+        }
+        return uu;
+    }
+
+    @GetMapping(value = "/smtng")
+    public String getUserBySmtng() {
+        System.out.println("trying to find by id");
+        return "kjkjkkj";
     }
 
 
-     */
-
+/*
     @PostMapping(value = "/")
     public ResponseEntity<?> putUser(@RequestBody User user) {
+
         userHandler.put(user);
-        return new ResponseEntity("Student added successfully", HttpStatus.OK);
+        return new ResponseEntity("User added successfully", HttpStatus.OK);
     }
 
-    /*
+
     @DeleteMapping(value = "/{studentNumber}")
     public void deleteStudent(@PathVariable Long studentNumber) {
-        studentService.deleteStudent(studentService.findByStudentNumber(studentNumber).getId());
+        //studentService.deleteStudent(studentService.findByStudentNumber(studentNumber).getId());
     }
-    */
+
+ */
+
 
 
 }

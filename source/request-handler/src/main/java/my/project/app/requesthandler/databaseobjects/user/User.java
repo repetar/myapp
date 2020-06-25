@@ -1,8 +1,9 @@
 package my.project.app.requesthandler.databaseobjects.user;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.UUID;
 
 // Applied at the class level to indicate this class is a candidate for mapping to the database.
 // You can specify the name of the collection where the data will be stored.
@@ -13,30 +14,38 @@ public class User {
     @Id
     private String id;
 
+    private String userId;
+
     private String firstName;
 
     private String lastName;
 
-    private String phoneNumber;
+    private String email;
 
     private String address;
 
-    public User() {
-
-    }
-
     public User(final String firstName,
                 final String lastName,
-                final String phoneNumber,
+                final String email,
                 final String address) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
+        this.email = email;
         this.address = address;
+        this.userId = UUID.randomUUID().toString();
+
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public void setId(String id) {
@@ -59,12 +68,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAddress() {

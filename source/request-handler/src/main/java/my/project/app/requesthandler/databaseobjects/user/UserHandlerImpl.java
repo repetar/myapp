@@ -34,4 +34,10 @@ public class UserHandlerImpl implements UserHandler {
         Example<User> example = Example.of(user);
         return userRepository.findOne(example).get();
     }
+
+    public User findByUserId(String userId) {
+        System.out.println("finding user by id");
+        return userRepository.findByUserId(userId);
+    }
+
 }

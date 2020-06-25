@@ -1,9 +1,11 @@
 package my.project.app.requesthandler;
-import my.project.app.requesthandler.databaseobjects.product.ProductHandler;
+import my.project.app.requesthandler.databaseobjects.order.Order;
+import my.project.app.requesthandler.databaseobjects.order.OrderHandlerImpl;
+import my.project.app.requesthandler.databaseobjects.order.OrderStatus;
 import my.project.app.requesthandler.databaseobjects.product.ProductHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.user.UserHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.product.Product;
-import my.project.app.requesthandler.databaseobjects.Quantity;
+import my.project.app.requesthandler.databaseobjects.product.Quantity;
 import my.project.app.requesthandler.databaseobjects.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,14 +19,17 @@ import org.springframework.context.annotation.ComponentScan;
 public class RequestHandler implements CommandLineRunner {
 
     UserHandlerImpl uh;
-    ProductHandler ph;
+    ProductHandlerImpl ph;
+    OrderHandlerImpl oh;
 
 
     @Autowired
     public RequestHandler(final UserHandlerImpl uh,
-                          final ProductHandlerImpl ph) {
+                          final ProductHandlerImpl ph,
+                          final OrderHandlerImpl oh) {
         this.uh = uh;
         this.ph = ph;
+        this.oh = oh;
         System.out.println("RequestHandler constructor");
     }
 
@@ -53,7 +58,21 @@ public class RequestHandler implements CommandLineRunner {
         this.ph.put(product);
 
         System.out.println("found description: " + this.ph.findById(product.getId()).getProductDescription());
-        this.ph.findProduct(product);
+        System.out.println("again: " + this.ph.findProduct(product).getProductDescription());
+
+        ////////////////////////////////////////////////
+
+        Order oo = new Order("878765",
+                "fff",
+                OrderStatus.IN_PROGRESS,
+                "fff",
+                "fff",
+                n.getId());
+
+        this.oh.put(oo);
+        System.out.println("get order :" + this.oh.findById(oo.getId()).getDeliveryDate());
+        System.out.println("get user by user id :" + this.uh.findByUserId(newUser.getUserId()).getFirstName());
+        System.out.println("get user by id :" + this.uh.findById(newUser.getId()).getFirstName());
 
 
     }

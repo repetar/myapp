@@ -1,14 +1,17 @@
 package my.project.app.requesthandler.databaseobjects.product;
 
-import my.project.app.requesthandler.databaseobjects.Quantity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.UUID;
 
 @Document(collection = "products")
 public class Product {
 
     @Id
     private String id;
+
+    private String productId;
 
     private String productName;
 
@@ -31,6 +34,7 @@ public class Product {
         this.productDescription = productDescription;
         this.productPrice = productPrice;
         this.quantity = quantity;
+        this.productId = UUID.randomUUID().toString();
     }
 
     public String getId() {
@@ -39,6 +43,14 @@ public class Product {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {

@@ -3,10 +3,14 @@ package my.project.app.requesthandler.databaseobjects.order;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
+import java.util.UUID;
+
 public class Order {
 
     @Id
-    private ObjectId id;
+    private String id;
+
+    private String orderId;
 
     private String orderNumber;
 
@@ -15,8 +19,6 @@ public class Order {
     private String orderDate;
 
     private String shipmentDate;
-
-    private String expectedDeliveryDate;
 
     private String deliveryDate;
 
@@ -31,7 +33,6 @@ public class Order {
                  final String orderDate,
                  final OrderStatus orderStatus,
                  final String shipmentDate,
-                 final String expectedDeliveryDate,
                  final String deliveryDate,
                  final String userId) {
 
@@ -39,20 +40,27 @@ public class Order {
             this.orderDate = orderDate;
             this.orderStatus = orderStatus;
             this.shipmentDate = shipmentDate;
-            this.expectedDeliveryDate = expectedDeliveryDate;
             this.deliveryDate = deliveryDate;
             this.userId = userId;
+            this.orderId = UUID.randomUUID().toString();
+
 
     }
 
-    public enum OrderStatus { IN_PROGRESS, COMPLETED, CANCELED }
-
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getOrderNumber() {
@@ -85,14 +93,6 @@ public class Order {
 
     public void setShipmentDate(String shipmentDate) {
         this.shipmentDate = shipmentDate;
-    }
-
-    public String getExpectedDeliveryDate() {
-        return expectedDeliveryDate;
-    }
-
-    public void setExpectedDeliveryDate(String expectedDeliveryDate) {
-        this.expectedDeliveryDate = expectedDeliveryDate;
     }
 
     public String getDeliveryDate() {

@@ -10,4 +10,7 @@ public interface UserHandler {
 
     User findById(String id);
 
+    User findByUserId(String userId);
+
+
 }
