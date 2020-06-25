@@ -7,12 +7,12 @@ public class Quantity {
     @Id
     private int id;
 
-    private Long availableQuantity;
+    private Double availableQuantity;
 
-    private Long soldQuantity;
+    private Double soldQuantity;
 
-    public Quantity(Long availableQuantity,
-                    Long soldQuantity) {
+    public Quantity(Double availableQuantity,
+                    Double soldQuantity) {
 
         this.availableQuantity = availableQuantity;
         this.soldQuantity = soldQuantity;
@@ -26,19 +26,19 @@ public class Quantity {
         this.id = id;
     }
 
-    public Long getAvailableQuantity() {
+    public Double getAvailableQuantity() {
         return availableQuantity;
     }
 
-    public void setAvailableQuantity(Long availableQuantity) {
+    public void setAvailableQuantity(Double availableQuantity) {
         this.availableQuantity = availableQuantity;
     }
 
-    public Long getSoldQuantity() {
+    public Double getSoldQuantity() {
         return soldQuantity;
     }
 
-    public void setSoldQuantity(Long soldQuantity) {
+    public void setSoldQuantity(Double soldQuantity) {
         this.soldQuantity = soldQuantity;
     }
 

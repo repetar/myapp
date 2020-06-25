@@ -1,4 +1,4 @@
-package my.project.app.requesthandler.databaseobjects.dbobjects;
+package my.project.app.requesthandler.databaseobjects.dbobjects.user;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -11,7 +11,7 @@ public class User {
 
     //Applied at the field level to mark the field used for identity purpose.
     @Id
-    private ObjectId id;
+    private String id;
 
     private String firstName;
 
@@ -35,11 +35,11 @@ public class User {
         this.address = address;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

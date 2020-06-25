@@ -1,11 +1,14 @@
-package my.project.app.requesthandler.databaseobjects.dbobjects;
+package my.project.app.requesthandler.databaseobjects.dbobjects.product;
 
+import my.project.app.requesthandler.databaseobjects.dbobjects.Quantity;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "products")
 public class Product {
 
     @Id
-    private int id;
+    private String id;
 
     private String productName;
 
@@ -30,11 +33,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

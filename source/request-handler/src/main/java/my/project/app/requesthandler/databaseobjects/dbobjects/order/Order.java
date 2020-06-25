@@ -1,4 +1,4 @@
-package my.project.app.requesthandler.databaseobjects.dbobjects;
+package my.project.app.requesthandler.databaseobjects.dbobjects.order;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
