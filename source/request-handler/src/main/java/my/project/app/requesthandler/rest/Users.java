@@ -18,25 +18,26 @@ public class Users {
     @Autowired
     private UserHandlerImpl userHandler;
 
+    //  {'Access-Control-Allow-Origin': '*'}
     @GetMapping(value = "/")
-    public List<User> getAllUsers() {
+    public ResponseEntity<List<User>> getAllUsers() {
         System.out.println("getting all users");
-        return userHandler.findAll();
+        return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*").body(userHandler.findAll());
     }
 
 
     @GetMapping(value = "/{id}")
-    public User getUserById(@PathVariable final String id) {
+    public ResponseEntity<User> getUserById(@PathVariable final String id) {
         System.out.println("trying to find by id");
-        return userHandler.findById(id);
+        return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*").body(userHandler.findById(id));
 
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> putUser(@RequestBody final User user) {
+    public ResponseEntity<String> putUser(@RequestBody final User user) {
         userHandler.put(user);
         System.out.println("post user info: " + user.getId() + " : " + user.getFirstName() + " : " + user.getEmail());
-        return new ResponseEntity("User added successfully", HttpStatus.OK);
+        return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*").body("Added user id: " + user.getId());
     }
 
 

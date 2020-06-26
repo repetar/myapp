@@ -6,6 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -14,6 +18,7 @@ import java.util.List;
 
 @Configuration
 public class MongoConfiguration {
+
 
     @Bean
     public MongoClient getClient() {
@@ -39,4 +44,5 @@ public class MongoConfiguration {
         return new MongoTemplate(getClient(), "mytestdb");
     }
 }
+
 

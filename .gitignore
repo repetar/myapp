@@ -7,6 +7,8 @@ mongo.iml
 
 source/request-handler/target/*
 
+source/front-end/node_modules
+
 source/request-handler/request-handler.iml
 source/request-handler-api/request-handler-api.iml
 source/request-handler-api/target/*

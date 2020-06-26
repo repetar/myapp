@@ -42,3 +42,11 @@ curl -X PUT -H "Content-Type:application/json" -d '{"orderNumber":"122-543", "ex
 
 
 https://medium.com/javarevisited/building-a-rest-service-with-spring-boot-and-mongodb-3aa5cd2dce73
+
+https://morioh.com/p/0db462f79048
+https://github.com/zalmoxisus/crossbuilder/issues/30
+
+npm run serve
+devspace init
+devspace deploy
+devspace dev
