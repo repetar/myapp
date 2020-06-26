@@ -13,11 +13,15 @@
     <br/>
     <input v-model="message" placeholder="password">
     <br/>
+    <input v-model="userid" placeholder="userid">
+    <br/>
     <button v-on:click="sendData()">getAllUsers</button>
     <br/>
     <button v-on:click="postUser()">postUser</button>
     <br/>
     <button v-on:click="update()">Update</button>
+    <br/>
+    <button v-on:click="getUserById()">userId</button>
     <br/>
     <textarea type="text" v-model=textboxmessage />
   </div>
@@ -65,6 +69,12 @@ export default {
 
     let response = await axios.post('http://10.99.135.244:8080/users/', ob)
     this.textboxmessage = JSON.stringify(response.data).pretty
+    },
+    async getUserById(){
+      let response = await axios.get('http://10.99.135.244:8080/users/' + this.userid)
+      let data = response.data
+      let pretty = JSON.stringify(data)
+      this.textboxmessage = pretty
     },
     update(){
       this.textboxmessage = "updated"
