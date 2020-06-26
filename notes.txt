@@ -49,4 +49,5 @@ https://github.com/zalmoxisus/crossbuilder/issues/30
 npm run serve
 devspace init
 devspace deploy
+devspace purge
 devspace dev

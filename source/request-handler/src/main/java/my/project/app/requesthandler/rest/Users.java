@@ -22,14 +22,14 @@ public class Users {
     @GetMapping(value = "/")
     public ResponseEntity<List<User>> getAllUsers() {
         System.out.println("getting all users");
-        return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*").body(userHandler.findAll());
+        return ResponseEntity.ok().body(userHandler.findAll());
     }
 
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> getUserById(@PathVariable final String id) {
         System.out.println("trying to find by id");
-        return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*").body(userHandler.findById(id));
+        return ResponseEntity.ok().body(userHandler.findById(id));
 
     }
 
@@ -37,7 +37,7 @@ public class Users {
     public ResponseEntity<String> putUser(@RequestBody final User user) {
         userHandler.put(user);
         System.out.println("post user info: " + user.getId() + " : " + user.getFirstName() + " : " + user.getEmail());
-        return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*").body("Added user id: " + user.getId());
+        return ResponseEntity.ok().body("Added user id: " + user.getId());
     }
 
 

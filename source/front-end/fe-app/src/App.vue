@@ -21,7 +21,9 @@
     <br/>
     <button v-on:click="update()">Update</button>
     <br/>
-    <button v-on:click="getUserById()">userId</button>
+    <button v-on:click="getUserById()">getuserbyid</button>
+    <br/>
+    <button v-on:click="deleteUserById()">deleteuserbyid</button>
     <br/>
     <textarea type="text" v-model=textboxmessage />
   </div>
@@ -68,10 +70,26 @@ export default {
     } 
 
     let response = await axios.post('http://10.99.135.244:8080/users/', ob)
-    this.textboxmessage = JSON.stringify(response.data).pretty
+    let data = response.data
+    let pretty = JSON.stringify(data)
+    this.textboxmessage = pretty
+    console.log("#####################################################")
+    console.log(response)
+    console.log("#####################################################")
+    console.log(data)
+    console.log("#####################################################")
+    console.log(pretty)
+    this.textboxmessage = pretty
+    
     },
     async getUserById(){
       let response = await axios.get('http://10.99.135.244:8080/users/' + this.userid)
+      let data = response.data
+      let pretty = JSON.stringify(data)
+      this.textboxmessage = pretty
+    },
+   async deleteUserById(){
+      let response = await axios.delete('http://10.99.135.244:8080/users/' + this.userid)
       let data = response.data
       let pretty = JSON.stringify(data)
       this.textboxmessage = pretty
