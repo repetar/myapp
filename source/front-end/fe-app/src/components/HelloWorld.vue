@@ -118,8 +118,10 @@ export default {
       this.textboxmessage = pretty
     },
     update(){
-      this.textboxmessage = "updated"
-
+      this.textboxmessage = this.textboxmessage + "updated"
+      if (this.$router.username != null){
+        this.textboxmessage = this.textboxmessage + this.$router.username
+      }
     }
   }
 }
