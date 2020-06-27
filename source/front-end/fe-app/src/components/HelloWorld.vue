@@ -27,14 +27,100 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+
+    <input v-model="firstName" placeholder="firstName">
+    <br/>
+    <input v-model="lastName" placeholder="lastName">
+    <br/>
+    <input v-model="email" placeholder="email">
+    <br/>
+    <input v-model="address" placeholder="address">
+    <br/>
+    <input v-model="message" placeholder="password">
+    <br/>
+    <input v-model="userid" placeholder="userid">
+    <br/>
+    <button v-on:click="sendData()">getAllUsers</button>
+    <br/>
+    <button v-on:click="postUser()">postUser</button>
+    <br/>
+    <button v-on:click="update()">Update</button>
+    <br/>
+    <button v-on:click="getUserById()">getuserbyid</button>
+    <br/>
+    <button v-on:click="deleteUserById()">deleteuserbyid</button>
+    <br/>
+    <textarea type="text" v-model=textboxmessage />
   </div>
 </template>
 
 <script>
+
+import axios from "axios";
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: 'App',
+  data() {
+      return {
+          input: {
+              firstname: "ff",
+              lastname: "gg"
+          },
+          textboxmessage: "hh"
+      }
+  },
+
+  methods:{
+    async sendData(){
+      this.textboxmessage = this.textboxmessage + "abb"
+      let response = await axios.get('http://10.99.135.244:8080/users/')
+      let data = response.data
+      let pretty = JSON.stringify(data)
+      this.textboxmessage = pretty
+      console.log("#####################################################")
+      console.log(response)
+      console.log("#####################################################")
+      console.log(data)
+      console.log("#####################################################")
+      console.log(pretty)
+    },
+    async postUser(){
+    let ob ={ 
+      "firstName":this.firstName, 
+      "lastName":this.lastName, 
+      "email":this.email, 
+      "address":this.address
+    } 
+
+    let response = await axios.post('http://10.99.135.244:8080/users/', ob)
+    let data = response.data
+    let pretty = JSON.stringify(data)
+    this.textboxmessage = pretty
+    console.log("#####################################################")
+    console.log(response)
+    console.log("#####################################################")
+    console.log(data)
+    console.log("#####################################################")
+    console.log(pretty)
+    this.textboxmessage = pretty
+    
+    },
+    async getUserById(){
+      let response = await axios.get('http://10.99.135.244:8080/users/' + this.userid)
+      let data = response.data
+      let pretty = JSON.stringify(data)
+      this.textboxmessage = pretty
+    },
+   async deleteUserById(){
+      let response = await axios.delete('http://10.99.135.244:8080/users/' + this.userid)
+      let data = response.data
+      let pretty = JSON.stringify(data)
+      this.textboxmessage = pretty
+    },
+    update(){
+      this.textboxmessage = "updated"
+
+    }
   }
 }
 </script>

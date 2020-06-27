@@ -1,106 +1,13 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-
-    <input v-model="firstName" placeholder="firstName">
-    <br/>
-    <input v-model="lastName" placeholder="lastName">
-    <br/>
-    <input v-model="email" placeholder="email">
-    <br/>
-    <input v-model="address" placeholder="address">
-    <br/>
-    <input v-model="message" placeholder="password">
-    <br/>
-    <input v-model="userid" placeholder="userid">
-    <br/>
-    <button v-on:click="sendData()">getAllUsers</button>
-    <br/>
-    <button v-on:click="postUser()">postUser</button>
-    <br/>
-    <button v-on:click="update()">Update</button>
-    <br/>
-    <button v-on:click="getUserById()">getuserbyid</button>
-    <br/>
-    <button v-on:click="deleteUserById()">deleteuserbyid</button>
-    <br/>
-    <textarea type="text" v-model=textboxmessage />
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>| 
+      <router-link to="/userlogin">UserLogin</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-import axios from "axios";
-
-export default {
-  name: 'App',
-  data() {
-      return {
-          input: {
-              firstname: "ff",
-              lastname: "gg"
-          },
-          textboxmessage: "hh"
-      }
-  },
-  components: {
-    HelloWorld
-  },
-  methods:{
-    async sendData(){
-      this.textboxmessage = this.textboxmessage + "abb"
-      let response = await axios.get('http://10.99.135.244:8080/users/')
-      let data = response.data
-      let pretty = JSON.stringify(data)
-      this.textboxmessage = pretty
-      console.log("#####################################################")
-      console.log(response)
-      console.log("#####################################################")
-      console.log(data)
-      console.log("#####################################################")
-      console.log(pretty)
-    },
-    async postUser(){
-    let ob ={ 
-      "firstName":this.firstName, 
-      "lastName":this.lastName, 
-      "email":this.email, 
-      "address":this.address
-    } 
-
-    let response = await axios.post('http://10.99.135.244:8080/users/', ob)
-    let data = response.data
-    let pretty = JSON.stringify(data)
-    this.textboxmessage = pretty
-    console.log("#####################################################")
-    console.log(response)
-    console.log("#####################################################")
-    console.log(data)
-    console.log("#####################################################")
-    console.log(pretty)
-    this.textboxmessage = pretty
-    
-    },
-    async getUserById(){
-      let response = await axios.get('http://10.99.135.244:8080/users/' + this.userid)
-      let data = response.data
-      let pretty = JSON.stringify(data)
-      this.textboxmessage = pretty
-    },
-   async deleteUserById(){
-      let response = await axios.delete('http://10.99.135.244:8080/users/' + this.userid)
-      let data = response.data
-      let pretty = JSON.stringify(data)
-      this.textboxmessage = pretty
-    },
-    update(){
-      this.textboxmessage = "updated"
-
-    }
-  }
-}
-</script>
 
 <style>
 #app {
@@ -109,6 +16,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
