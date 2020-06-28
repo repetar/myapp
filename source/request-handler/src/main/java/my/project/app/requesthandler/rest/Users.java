@@ -33,6 +33,12 @@ public class Users {
 
     }
 
+    @GetMapping(value = "/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable final String email) {
+        System.out.println("trying to find by email");
+        return ResponseEntity.ok().body(userHandler.findByEmail(email));
+    }
+
     @PostMapping("/")
     public ResponseEntity<String> putUser(@RequestBody final User user) {
         userHandler.put(user);
