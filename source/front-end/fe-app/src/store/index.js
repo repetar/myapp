@@ -22,15 +22,6 @@ const store = new Vuex.Store({
       state.loggedIn = false
     } 
   },
-  actions: {
-    saveUserLogged (context, loggedUser) {
-      console.log("dispatching" + loggedUser)
-      context.commit('saveUserLogged', loggedUser)
-    },
-    logOut(context){
-      context.commit('logOut')
-    } 
-  },
   getters: {
     userId: state => {
       console.log("getter: " + state.userId)

@@ -2,11 +2,11 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link v-if="authenticated" to="/userprofile"> {{username}} user profile| </router-link>
-      <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link> 
-      <router-link v-if="authenticated !== true" to="/userlogin">Login</router-link>
+      <router-link v-if="this.$store.getters.loginState" to="/userprofile"> {{username}} user profile| </router-link>
+      <router-link v-if="this.$store.getters.loginState" to="/login" v-on:click.native="logout()" push>Logout</router-link> 
+      <router-link v-if="this.$store.getters.loginState != true" to="/userlogin">Login</router-link>
+      <router-view v-bind:key="$route.fullPath" />
     </div>
-    <router-view @authenticated="setAuthenticated" />
   </div>
 </template>
 
@@ -16,16 +16,12 @@ export default {
         name: 'App',
         data() {
             return {
-                authenticated: this.$store.getters.loginState,
                 username: this.$router.username
             }
         },
         methods: {
-            setAuthenticated() {
-                this.authenticated = this.$store.getters.loginState;
-            },
             logout() {
-              this.$store.dispatch('logOut')
+              this.$store.commit('logOut')
               this.authenticated = this.$store.getters.loginState;
               this.$router.replace({ name: "Home" });
             }

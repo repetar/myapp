@@ -33,8 +33,6 @@ export default {
                   let response = await axios.post('http://10.99.135.244:8080/users/login', ob)
                   let data = response.data
                   if (data == "success"){
-                    this.$emit("authenticated", true);
-                    this.$router.replace({ name: "Home" });
                     // get userid here
                     console.log("user email: " + ob.email)
                     let user = await axios.get('http://10.99.135.244:8080/users/email/' + ob.email)
@@ -42,10 +40,11 @@ export default {
                     console.log("firstname:" + data.firstName)
                     console.log("login state: " + this.$store.getters.loginState)
                     console.log("initial id: " + this.$store.getters.userId)
-                    this.$router.username = data.firstName;
-                    this.$store.dispatch('saveUserLogged', data.id)
-                    console.log("this.$router.username:" + this.$router.username);
-                    console.log("this.$store.state.userloged: " + this.$store.getters.userId);
+                    this.$store.commit('saveUserLogged', data.id)
+                    console.log("authenticated state 2: " + this.authenticated)
+                    this.$router.replace({name: "Home"} );
+                    
+                    console.log("login state 2: " + this.$store.getters.loginState)
 
                   } else{
 
