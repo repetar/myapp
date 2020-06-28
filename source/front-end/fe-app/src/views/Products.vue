@@ -1,7 +1,6 @@
 <template>
   <div class="products">
     <h1>Products</h1>
-    <textarea type="text" v-model=textboxmessage />
     <ul>
     <li v-for="product in this.productlist" v-bind:key="product">
         {{ product.productName }}
@@ -11,6 +10,7 @@
         Price: {{product.productPrice}} 
         <br/>
         <button v-on:click="order(product.id)">Order</button>
+        <br/>
         <br/>
         <br/>
     </li>
@@ -25,21 +25,18 @@ import axios from "axios";
 export default {
     data(){
         return{ 
-        textboxmessage: '',
         productlist: '',
         } 
 
     } ,
     mounted:function(){
-        this.sendData()
+        this.getProducts()
     },
     methods:{
-        async sendData(){
-        this.textboxmessage = this.textboxmessage + "abb"
+        async getProducts(){
         let response = await axios.get('http://10.99.135.244:8080/products/')
         let data = response.data
         let pretty = JSON.stringify(data)
-        this.textboxmessage = pretty
         this.productlist = data
         console.log("#####################################################")
         console.log(response)
@@ -52,10 +49,26 @@ export default {
             console.log("name " + on.productName ) 
         } 
         },
-        order(id){
+        async order(id){
 
             console.log("ordering id: " + id)
-        } 
+            let ob ={ 
+            "orderDate":new Date().toLocaleString(), 
+            "userId":this.$store.getters.userId, 
+            "productId":id, 
+            } 
+
+            let response = await axios.post('http://10.99.135.244:8080/orders/', ob)
+            let data = response.data
+            let pretty = JSON.stringify(data)
+            console.log("#####################################################")
+            console.log(response)
+            console.log("#####################################################")
+            console.log(data)
+            console.log("#####################################################")
+            console.log(pretty)
+
+        }
     }
 }
 </script>

@@ -6,27 +6,40 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    userId: 'ua'
+    userId: '',
+    loggedIn: false
   },
   mutations: {
     saveUserLogged (state, loggedUser) {
       console.log("current state: " + state.userId)
       console.log("saving: " + loggedUser)
       state.userId = loggedUser
+      state.loggedIn = true
       console.log("state.userLogged: " + state.userId)
-    }
+    },
+    logOut(state){
+      state.userId = ''
+      state.loggedIn = false
+    } 
   },
   actions: {
     saveUserLogged (context, loggedUser) {
       console.log("dispatching" + loggedUser)
       context.commit('saveUserLogged', loggedUser)
-    }
+    },
+    logOut(context){
+      context.commit('logOut')
+    } 
   },
   getters: {
-    mystates: state => {
+    userId: state => {
       console.log("getter: " + state.userId)
       return state.userId
-    }
+    },
+    loginState: state =>{
+      console.log("login state getter: " + state.loggedIn)
+      return state.loggedIn
+    } 
   },
   plugins: [createPersistedState()]
 })

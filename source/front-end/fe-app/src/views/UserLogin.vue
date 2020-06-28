@@ -38,13 +38,14 @@ export default {
                     // get userid here
                     console.log("user email: " + ob.email)
                     let user = await axios.get('http://10.99.135.244:8080/users/email/' + ob.email)
-                    
                     let data = user.data
                     console.log("firstname:" + data.firstName)
+                    console.log("login state: " + this.$store.getters.loginState)
+                    console.log("initial id: " + this.$store.getters.userId)
                     this.$router.username = data.firstName;
                     this.$store.dispatch('saveUserLogged', data.id)
                     console.log("this.$router.username:" + this.$router.username);
-                    console.log("this.$store.state.userloged: " + this.$store.getters.mystates);
+                    console.log("this.$store.state.userloged: " + this.$store.getters.userId);
 
                   } else{
 

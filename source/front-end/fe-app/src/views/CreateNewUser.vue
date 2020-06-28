@@ -14,7 +14,6 @@
     <br/>
     <button v-on:click="postUser()">postUser</button>
     <br/>
-    <textarea type="text" v-model=textboxmessage />
   </div>
 </template>
 
@@ -26,7 +25,7 @@ export default {
   name: 'App',
   data() {
       return {
-          textboxmessage: "hh"
+          
       }
   },
 

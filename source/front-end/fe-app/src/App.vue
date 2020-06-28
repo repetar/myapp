@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link v-if="authenticated" to="/userprofile"> {{username}} user profile</router-link> | 
+      <router-link v-if="authenticated" to="/userprofile"> {{username}} user profile| </router-link>
       <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link> 
       <router-link v-if="authenticated !== true" to="/userlogin">Login</router-link>
     </div>
@@ -12,20 +12,21 @@
 
 <script>
     
-    export default {
+export default {
         name: 'App',
         data() {
             return {
-                authenticated: false,
+                authenticated: this.$store.getters.loginState,
                 username: this.$router.username
             }
         },
         methods: {
-            setAuthenticated(status) {
-                this.authenticated = status;
+            setAuthenticated() {
+                this.authenticated = this.$store.getters.loginState;
             },
             logout() {
-                this.authenticated = false;
+              this.$store.dispatch('logOut')
+              this.authenticated = this.$store.getters.loginState;
             }
         }
     }
