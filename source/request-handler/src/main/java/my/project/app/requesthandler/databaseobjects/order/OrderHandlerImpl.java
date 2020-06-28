@@ -1,10 +1,20 @@
 package my.project.app.requesthandler.databaseobjects.order;
 
+
 import my.project.app.requesthandler.databaseobjects.product.Product;
+import my.project.app.requesthandler.databaseobjects.product.ProductHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.product.ProductRepository;
+import my.project.app.requesthandler.databaseobjects.quantity.Quantity;
+import my.project.app.requesthandler.databaseobjects.quantity.QuantityHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
@@ -14,6 +24,15 @@ public class OrderHandlerImpl implements  OrderHandler {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private ProductHandlerImpl productHandler;
+
+    @Autowired
+    QuantityHandlerImpl quantityHandler;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Autowired
     public OrderHandlerImpl() {
@@ -31,12 +50,30 @@ public class OrderHandlerImpl implements  OrderHandler {
         return this.orderRepository.findById(id).get();
     }
 
-    public Order findProduct (Order order) {
-        Example<Order> example = Example.of(order);
-        return this.orderRepository.findOne(example).get();
-    }
-
     public List<Order> findByUserId(final String userId) {
         return null;
+    }
+
+
+    @Transactional
+    public void newOrder(final Order order) {
+        Quantity quantity = quantityHandler.getQuantityByProductId(order.getProductId());
+        if (quantity.getAvailableQuantity() > 1 ) {
+
+            // update product quantity
+            System.out.println("available quantity: "  + quantity.getAvailableQuantity() + " for id: " + quantity.getId());
+            quantity.setAvailableQuantity(quantity.getAvailableQuantity() -1);
+
+
+            quantityHandler.put(quantity);
+            orderRepository.save(order);
+        }
+
+    }
+    // decrease product availability count if at least 1
+    // add new order together with count decrease. transaction, thread safe
+    public void newOrder(final Order order, final Product product) {
+
+
     }
 }

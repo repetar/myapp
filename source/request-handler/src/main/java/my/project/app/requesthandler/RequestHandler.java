@@ -5,9 +5,11 @@ import my.project.app.requesthandler.databaseobjects.order.OrderHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.order.OrderStatus;
 import my.project.app.requesthandler.databaseobjects.product.ProductHandler;
 import my.project.app.requesthandler.databaseobjects.product.ProductHandlerImpl;
+import my.project.app.requesthandler.databaseobjects.quantity.Quantity;
+import my.project.app.requesthandler.databaseobjects.quantity.QuantityHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.user.UserHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.product.Product;
-import my.project.app.requesthandler.databaseobjects.product.Quantity;
+
 import my.project.app.requesthandler.databaseobjects.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,15 +25,18 @@ public class RequestHandler implements CommandLineRunner {
     UserHandlerImpl uh;
     ProductHandlerImpl ph;
     OrderHandlerImpl oh;
+    QuantityHandlerImpl qh;
 
 
     @Autowired
     public RequestHandler(final UserHandlerImpl uh,
                           final ProductHandlerImpl ph,
-                          final OrderHandlerImpl oh) {
+                          final OrderHandlerImpl oh,
+                          final QuantityHandlerImpl qh) {
         this.uh = uh;
         this.ph = ph;
         this.oh = oh;
+        this.qh = qh;
         System.out.println("RequestHandler constructor");
     }
 
@@ -80,6 +85,12 @@ public class RequestHandler implements CommandLineRunner {
         System.out.println(objectMapper.writeValueAsString(product));
         System.out.println(objectMapper.writeValueAsString(oo));
 
-*/
+
+
+        Quantity quantity = new Quantity(654, 0, "5ef8659908e19c2c9747ebb7");
+        qh.put(quantity);
+
+ */
+
     }
 }

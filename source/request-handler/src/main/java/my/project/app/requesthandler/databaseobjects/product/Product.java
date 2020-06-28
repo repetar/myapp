@@ -4,8 +4,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.UUID;
-
 @Document(collection = "products")
 public class Product {
 
@@ -21,8 +19,6 @@ public class Product {
 
     private String category;
 
-    private Quantity quantity;
-
     public Product() {
 
     }
@@ -30,14 +26,13 @@ public class Product {
     public Product(final String productName,
                    final double productPrice,
                    final String category,
-                   final String productDescription,
-                   final Quantity quantity) {
+                   final String productDescription) {
 
         this.productName = productName;
         this.category = category;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
-        this.quantity = quantity;
+
     }
 
     public String getId() {
@@ -81,11 +76,4 @@ public class Product {
         this.category = category;
     }
 
-    public Quantity getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Quantity quantity) {
-        this.quantity = quantity;
-    }
 }

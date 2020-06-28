@@ -27,6 +27,7 @@ export default {
             logout() {
               this.$store.dispatch('logOut')
               this.authenticated = this.$store.getters.loginState;
+              this.$router.replace({ name: "Home" });
             }
         }
     }

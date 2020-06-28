@@ -58,7 +58,7 @@ public class Orders {
 
     @PostMapping("/")
     public ResponseEntity<String> putOrder(@RequestBody final Order order) {
-        orderHandler.put(order);
+        orderHandler.newOrder(order);
         System.out.println("post order info: " + order.getId() + " : " + order.getDeliveryDate());
         return ResponseEntity.ok().body("Added order id: " + order.getId());
     }

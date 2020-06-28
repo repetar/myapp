@@ -49,7 +49,7 @@ public class Users {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody final User user) {
         User myuser = userHandler.findByEmail(user.getEmail());
-        if (myuser.getPassword().equals(user.getPassword())) {
+        if (myuser != null && myuser.getPassword().equals(user.getPassword())) {
             System.out.println("login succesfull");
             return ResponseEntity.ok().body("success");
         } else {
