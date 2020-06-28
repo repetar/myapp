@@ -27,6 +27,8 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     public User findById(final String id) {
+
+        System.out.println("finding user by id");
         return this.userRepository.findById(id).get();
     }
 
@@ -35,9 +37,9 @@ public class UserHandlerImpl implements UserHandler {
         return userRepository.findOne(example).get();
     }
 
-    public User findByUserId(String userId) {
-        System.out.println("finding user by id");
-        return userRepository.findByUserId(userId);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+
     }
 
     public void deleteUser(String id) {

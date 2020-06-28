@@ -41,9 +41,9 @@ public class RequestHandler implements CommandLineRunner {
     }
 
     public final void run(final String... args) throws Exception {
-
+/*
         System.out.println("putting user");
-        User myUser = new User("petar1", "tomic", "989898", "hrv v");
+        User myUser = new User("petar1", "tomic", "989898", "hrv v", "password");
         this.uh.put(myUser);
 
         System.out.println("getting user");
@@ -73,13 +73,13 @@ public class RequestHandler implements CommandLineRunner {
 
         this.oh.put(oo);
         System.out.println("get order :" + this.oh.findById(oo.getId()).getDeliveryDate());
-        System.out.println("get user by user id :" + this.uh.findByUserId(newUser.getUserId()).getFirstName());
+        System.out.println("get user by user id :" + this.uh.findById(newUser.getId()).getFirstName());
         System.out.println("get user by id :" + this.uh.findById(newUser.getId()).getFirstName());
 
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println(objectMapper.writeValueAsString(product));
         System.out.println(objectMapper.writeValueAsString(oo));
 
-
+*/
     }
 }

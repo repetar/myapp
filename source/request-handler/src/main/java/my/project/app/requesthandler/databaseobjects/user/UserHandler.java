@@ -10,8 +10,6 @@ public interface UserHandler {
 
     User findById(String id);
 
-    User findByUserId(String userId);
-
     void deleteUser(String id);
 
 

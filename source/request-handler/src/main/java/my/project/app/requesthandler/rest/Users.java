@@ -40,6 +40,18 @@ public class Users {
         return ResponseEntity.ok().body("Added user id: " + user.getId());
     }
 
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody final User user) {
+        User myuser = userHandler.findByEmail(user.getEmail());
+        if (myuser.getPassword().equals(user.getPassword())) {
+            System.out.println("login succesfull");
+            return ResponseEntity.ok().body("success");
+        } else {
+            System.out.println("login failed");
+            return ResponseEntity.ok().body("fail");
+        }
+    }
+
 
     @DeleteMapping(value = "/{id}")
     public void deleteStudent(@PathVariable final String id) {

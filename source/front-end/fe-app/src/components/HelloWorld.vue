@@ -89,7 +89,8 @@ export default {
       "firstName":this.firstName, 
       "lastName":this.lastName, 
       "email":this.email, 
-      "address":this.address
+      "address":this.address,
+      "password":this.password
     } 
 
     let response = await axios.post('http://10.99.135.244:8080/users/', ob)

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends MongoRepository<User, String> {
 
     // method names must follow attribute names
-    User findByUserId(final String userId);
+
+    User findByEmail(final String email);
 
 }

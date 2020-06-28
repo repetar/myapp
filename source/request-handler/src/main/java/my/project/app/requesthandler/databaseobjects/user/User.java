@@ -1,6 +1,7 @@
 package my.project.app.requesthandler.databaseobjects.user;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
@@ -14,15 +15,16 @@ public class User {
     @Id
     private String id;
 
-    private String userId;
-
     private String firstName;
 
     private String lastName;
 
+    @Indexed(unique=true)
     private String email;
 
     private String address;
+
+    private String password;
 
     // needed for POST and deserializing json info
     public User() {
@@ -32,29 +34,29 @@ public class User {
     public User(final String firstName,
                 final String lastName,
                 final String email,
-                final String address) {
+                final String address,
+                final String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
-        this.userId = UUID.randomUUID().toString();
-
+        this.password = password;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
