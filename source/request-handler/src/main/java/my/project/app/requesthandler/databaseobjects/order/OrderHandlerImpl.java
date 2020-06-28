@@ -6,6 +6,7 @@ import my.project.app.requesthandler.databaseobjects.product.ProductHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.product.ProductRepository;
 import my.project.app.requesthandler.databaseobjects.quantity.Quantity;
 import my.project.app.requesthandler.databaseobjects.quantity.QuantityHandlerImpl;
+import my.project.app.requesthandler.exceptions.OutOfStockException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -56,14 +57,18 @@ public class OrderHandlerImpl implements  OrderHandler {
 
 
     @Transactional
-    public void newOrder(final Order order) {
+    public void newOrder(final Order order) throws OutOfStockException {
         Quantity quantity = quantityHandler.getQuantityByProductId(order.getProductId());
         if (quantity.getAvailableQuantity() > 1 ) {
 
             // update product quantity
             System.out.println("available quantity: "  + quantity.getAvailableQuantity() + " for id: " + quantity.getId());
-            quantity.setAvailableQuantity(quantity.getAvailableQuantity() -1);
+            if (quantity.getAvailableQuantity() > 1) {
+                quantity.setAvailableQuantity(quantity.getAvailableQuantity() -1);
 
+            } else {
+                throw  new OutOfStockException("Product is out of stock");
+            }
 
             quantityHandler.put(quantity);
             orderRepository.save(order);

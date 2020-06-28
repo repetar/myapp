@@ -4,7 +4,9 @@ import my.project.app.requesthandler.databaseobjects.order.Order;
 import my.project.app.requesthandler.databaseobjects.order.OrderHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.product.Product;
 import my.project.app.requesthandler.databaseobjects.product.ProductHandlerImpl;
+import my.project.app.requesthandler.exceptions.OutOfStockException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.MongoTransactionException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -58,7 +60,13 @@ public class Orders {
 
     @PostMapping("/")
     public ResponseEntity<String> putOrder(@RequestBody final Order order) {
-        orderHandler.newOrder(order);
+        try {
+            orderHandler.newOrder(order);
+        } catch (OutOfStockException e) {
+            return ResponseEntity.ok().body("Product is out of stock!");
+        } catch (MongoTransactionException e){
+            return ResponseEntity.ok().body("Order creation failed.");
+        }
         System.out.println("post order info: " + order.getId() + " : " + order.getDeliveryDate());
         return ResponseEntity.ok().body("Added order id: " + order.getId());
     }

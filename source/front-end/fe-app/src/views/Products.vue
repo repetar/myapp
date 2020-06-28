@@ -59,14 +59,22 @@ export default {
             } 
 
             let response = await axios.post('http://10.99.135.244:8080/orders/', ob)
-            let data = response.data
-            let pretty = JSON.stringify(data)
-            console.log("#####################################################")
-            console.log(response)
-            console.log("#####################################################")
-            console.log(data)
-            console.log("#####################################################")
-            console.log(pretty)
+            if (response.data == "Product is out of stock!"){
+                this.$router.replace({name: "OutOfStock"} );
+            } else if (response.data == "Order creation failed."){
+                this.$router.replace({name: "OrderFailed"} );
+            } else{
+                let data = response.data
+                let pretty = JSON.stringify(data)
+                console.log("#####################################################")
+                console.log(response)
+                console.log("#####################################################")
+                console.log(data)
+                console.log("#####################################################")
+                console.log(pretty)
+                this.$router.replace({name: "OrderSuccesfull"} );
+            } 
+
 
         }
     }
