@@ -53,7 +53,7 @@ export default {
         } 
         },
         order(id){
-            
+
             console.log("ordering id: " + id)
         } 
     }

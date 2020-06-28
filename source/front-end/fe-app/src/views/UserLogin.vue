@@ -42,7 +42,9 @@ export default {
                     let data = user.data
                     console.log("firstname:" + data.firstName)
                     this.$router.username = data.firstName;
-                    console.log("this.$router.username:" + this.$router.username)
+                    this.$store.dispatch('saveUserLogged', data.id)
+                    console.log("this.$router.username:" + this.$router.username);
+                    console.log("this.$store.state.userloged: " + this.$store.getters.mystates);
 
                   } else{
 

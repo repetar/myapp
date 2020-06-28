@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Vuex from 'vuex'
+
 
 Vue.use(VueRouter)
-Vue.use(Vuex)
 
   const routes = [
    { 
@@ -54,5 +53,6 @@ Vue.use(Vuex)
 const router = new VueRouter({
   routes
 })
+
 
 export default router
