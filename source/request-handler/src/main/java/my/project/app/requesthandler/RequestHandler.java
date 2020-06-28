@@ -1,7 +1,9 @@
 package my.project.app.requesthandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import my.project.app.requesthandler.databaseobjects.order.Order;
 import my.project.app.requesthandler.databaseobjects.order.OrderHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.order.OrderStatus;
+import my.project.app.requesthandler.databaseobjects.product.ProductHandler;
 import my.project.app.requesthandler.databaseobjects.product.ProductHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.user.UserHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.product.Product;
@@ -63,16 +65,20 @@ public class RequestHandler implements CommandLineRunner {
         ////////////////////////////////////////////////
 
         Order oo = new Order("878765",
-                "fff",
                 OrderStatus.IN_PROGRESS,
                 "fff",
                 "fff",
-                n.getId());
+                n.getId(),
+                product.getId());
 
         this.oh.put(oo);
         System.out.println("get order :" + this.oh.findById(oo.getId()).getDeliveryDate());
         System.out.println("get user by user id :" + this.uh.findByUserId(newUser.getUserId()).getFirstName());
         System.out.println("get user by id :" + this.uh.findById(newUser.getId()).getFirstName());
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(objectMapper.writeValueAsString(product));
+        System.out.println(objectMapper.writeValueAsString(oo));
 
 
     }

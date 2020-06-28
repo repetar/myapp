@@ -11,8 +11,6 @@ public class Product {
     @Id
     private String id;
 
-    private String productId;
-
     private String productName;
 
     private double productPrice;
@@ -22,6 +20,10 @@ public class Product {
     private String category;
 
     private Quantity quantity;
+
+    public Product() {
+
+    }
 
     public Product(final String productName,
                    final double productPrice,
@@ -34,7 +36,6 @@ public class Product {
         this.productDescription = productDescription;
         this.productPrice = productPrice;
         this.quantity = quantity;
-        this.productId = UUID.randomUUID().toString();
     }
 
     public String getId() {
@@ -45,13 +46,6 @@ public class Product {
         this.id = id;
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
 
     public String getProductName() {
         return productName;

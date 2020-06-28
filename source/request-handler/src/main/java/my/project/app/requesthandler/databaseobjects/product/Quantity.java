@@ -11,6 +11,10 @@ public class Quantity {
 
     private Double soldQuantity;
 
+    public Quantity() {
+
+    }
+
     public Quantity(Double availableQuantity,
                     Double soldQuantity) {
 

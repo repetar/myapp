@@ -1,18 +1,17 @@
 package my.project.app.requesthandler.databaseobjects.order;
 
+import my.project.app.requesthandler.databaseobjects.product.Product;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
+@Document(collection = "orders")
 public class Order {
 
     @Id
     private String id;
-
-    private String orderId;
-
-    private String orderNumber;
 
     private OrderStatus orderStatus;
 
@@ -22,6 +21,8 @@ public class Order {
 
     private String deliveryDate;
 
+    private String productId;
+
     /**
      * Instead of keeping a list of orders inside User class, to avoid growing arrays,
      * we will keep the userId inside of Order class.
@@ -29,22 +30,23 @@ public class Order {
      */
     private String userId;
 
-    public Order(final String orderNumber,
-                 final String orderDate,
+    public Order() {
+
+    }
+
+    public Order(final String orderDate,
                  final OrderStatus orderStatus,
                  final String shipmentDate,
                  final String deliveryDate,
-                 final String userId) {
+                 final String userId,
+                 final String productId) {
 
-            this.orderNumber = orderNumber;
             this.orderDate = orderDate;
             this.orderStatus = orderStatus;
             this.shipmentDate = shipmentDate;
             this.deliveryDate = deliveryDate;
             this.userId = userId;
-            this.orderId = UUID.randomUUID().toString();
-
-
+            this.productId = productId;
     }
 
     public String getId() {
@@ -53,22 +55,6 @@ public class Order {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
     }
 
     public OrderStatus getOrderStatus() {
@@ -109,5 +95,13 @@ public class Order {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }

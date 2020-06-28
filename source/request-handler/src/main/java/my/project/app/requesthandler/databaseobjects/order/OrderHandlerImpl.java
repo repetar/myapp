@@ -35,4 +35,8 @@ public class OrderHandlerImpl implements  OrderHandler {
         Example<Order> example = Example.of(order);
         return this.orderRepository.findOne(example).get();
     }
+
+    public List<Order> findByUserId(final String userId) {
+        return null;
+    }
 }
