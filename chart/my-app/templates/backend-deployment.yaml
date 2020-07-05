@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: request-handler
+  labels:
+    name: requesthandler
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+      name: requesthandler
+  template:
+    metadata:
+      labels:
+        name: requesthandler
+    spec:
+      containers:
+        - name: request-handler
+          image: my.project.app.requesthandler:1.0.0
+          ports:
+            - containerPort: 8080
+          command: [ "/bin/bash", "-c", "java -cp /usr/src/app/*:/usr/src/app/dependency/* my.project.app.requesthandler.RequestHandler" ]
+          args: [ "while true; do sleep 30; done;" ]

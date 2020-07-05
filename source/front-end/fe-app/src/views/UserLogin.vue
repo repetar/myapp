@@ -30,12 +30,12 @@ export default {
                          "email":this.input.email,
                          "password":this.input.password
                   }
-                  let response = await axios.post('http://10.99.135.244:8080/users/login', ob)
+                  let response = await axios.post('http://10.0.2.15:32134/users/login', ob)
                   let data = response.data
                   if (data == "success"){
                     // get userid here
                     console.log("user email: " + ob.email)
-                    let user = await axios.get('http://10.99.135.244:8080/users/email/' + ob.email)
+                    let user = await axios.get('http://10.0.2.15:32134/users/email/' + ob.email)
                     let data = user.data
                     console.log("firstname:" + data.firstName)
                     console.log("login state: " + this.$store.getters.loginState)
@@ -43,7 +43,7 @@ export default {
                     this.$store.commit('saveUserLogged', data.id)
                     console.log("authenticated state 2: " + this.authenticated)
                     this.$router.replace({name: "Home"} );
-                    
+
                     console.log("login state 2: " + this.$store.getters.loginState)
 
                   } else{

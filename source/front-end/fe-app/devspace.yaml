@@ -18,14 +18,14 @@ deployments:
       - image: devspace
       service:
         ports:
-        - port: 8080
+        - port: 32134
 dev:
   ports:
   - imageName: app
     forward:
-    - port: 8080
+    - port: 32134
   open:
-  - url: http://localhost:8080
+  - url: http://localhost:32134
   sync:
   - imageName: app
     excludePaths:

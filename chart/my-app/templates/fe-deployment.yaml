@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-end
+  labels:
+    name: front-end
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+  selector:
+    matchLabels:
+      name: front-end
+  template:
+    metadata:
+      labels:
+        name: front-end
+    spec:
+      containers:
+        - name: front-end
+          image: fe-app:0.0.1
+          command: [ "/bin/bash", "-c", "npm run dev"]
+          ports:
+            - containerPort: 8080
+          args: [ "while true; do sleep 30; done;" ]

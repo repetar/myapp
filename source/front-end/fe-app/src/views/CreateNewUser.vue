@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    
+
 
     <input v-model="firstName" placeholder="firstName">
     <br/>
@@ -25,21 +25,21 @@ export default {
   name: 'App',
   data() {
       return {
-          
+
       }
   },
 
   methods:{
     async postUser(){
-    let ob ={ 
-      "firstName":this.firstName, 
-      "lastName":this.lastName, 
-      "email":this.email, 
+    let ob ={
+      "firstName":this.firstName,
+      "lastName":this.lastName,
+      "email":this.email,
       "address":this.address,
       "password":this.password
-    } 
+    }
 
-    let response = await axios.post('http://10.99.135.244:8080/users/', ob)
+    let response = await axios.post('http://10.0.2.15:32134/users/', ob)
     let data = response.data
     let pretty = JSON.stringify(data)
     this.textboxmessage = pretty
@@ -51,7 +51,7 @@ export default {
     console.log(pretty)
     this.textboxmessage = pretty
     this.$router.push('UserLogin')
-    
+
     }
   }
 }

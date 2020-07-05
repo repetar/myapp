@@ -56,4 +56,8 @@ login: https://www.thepolyglotdeveloper.com/2018/04/simple-user-login-vuejs-web-
 
 curl -X POST -H "Content-Type:application/json" -d '{"productName":"first product","productPrice":765.98,"productDescription":"some descripton","category":"some category","quantity":{"availableQuantity":654765.0,"soldQuantity":122.0}}' localhost:8080/products/
 
-
+install:
+  kubectl get crd/mongodb.mongodb.com
+  kubectl create -f chart/mongodb/crds/mongodb.com_mongodb_crd.yaml
+  kubectl create -f chart/mongodb/
+  kubectl apply -f chart/mongodb/crds/mongodb.com_v1_mongodb_cr.yaml

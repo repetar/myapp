@@ -15,7 +15,7 @@ COPY . .
 
 # Application port (optional)
 EXPOSE 3000
-EXPOSE 8080
+EXPOSE 32134
 
 # Debugging port (optional)
 # For remote debugging, add this port to devspace.yaml: dev.ports[*].forward[*].port: 9229

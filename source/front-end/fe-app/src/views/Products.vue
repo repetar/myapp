@@ -5,9 +5,9 @@
     <li v-for="product in this.productlist" v-bind:key="product">
         {{ product.productName }}
         <br/>
-        {{product.productDescription}} 
+        {{product.productDescription}}
         <br/>
-        Price: {{product.productPrice}} 
+        Price: {{product.productPrice}}
         <br/>
         <button v-on:click="order(product.id)">Order</button>
         <br/>
@@ -24,9 +24,9 @@ import axios from "axios";
 
 export default {
     data(){
-        return{ 
+        return{
         productlist: '',
-        } 
+        }
 
     } ,
     mounted:function(){
@@ -34,7 +34,7 @@ export default {
     },
     methods:{
         async getProducts(){
-        let response = await axios.get('http://10.99.135.244:8080/products/')
+        let response = await axios.get('http://10.0.2.15:32134/products/')
         let data = response.data
         let pretty = JSON.stringify(data)
         this.productlist = data
@@ -46,19 +46,19 @@ export default {
         console.log(pretty)
         for (var i=0; i<pretty.length; i++){
             var on = pretty[i]
-            console.log("name " + on.productName ) 
-        } 
+            console.log("name " + on.productName )
+        }
         },
         async order(id){
 
             console.log("ordering id: " + id)
-            let ob ={ 
-            "orderDate":new Date().toLocaleString(), 
-            "userId":this.$store.getters.userId, 
-            "productId":id, 
-            } 
+            let ob ={
+            "orderDate":new Date().toLocaleString(),
+            "userId":this.$store.getters.userId,
+            "productId":id,
+            }
 
-            let response = await axios.post('http://10.99.135.244:8080/orders/', ob)
+            let response = await axios.post('http://10.0.2.15:32134/orders/', ob)
             if (response.data == "Product is out of stock!"){
                 this.$router.replace({name: "OutOfStock"} );
             } else if (response.data == "Order creation failed."){
@@ -73,7 +73,7 @@ export default {
                 console.log("#####################################################")
                 console.log(pretty)
                 this.$router.replace({name: "OrderSuccesfull"} );
-            } 
+            }
 
 
         }
