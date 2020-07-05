@@ -25,7 +25,7 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     public void put(final User user) {
-        userRepository.save(user);
+        this.userRepository.save(user);
     }
 
     public List<User> findAll() {
@@ -38,19 +38,19 @@ public class UserHandlerImpl implements UserHandler {
 
     public User findUser(User user) {
         Example<User> example = Example.of(user);
-        return userRepository.findOne(example).get();
+        return this.userRepository.findOne(example).get();
     }
 
     public User findByEmail(String email) {
         Query query = new Query();
         query.addCriteria(Criteria.where("email").is(email));
-        mongoTemplate.findOne(query, User.class, "users");
-        return mongoTemplate.findOne(query, User.class);
+        this.mongoTemplate.findOne(query, User.class, "users");
+        return this.mongoTemplate.findOne(query, User.class);
 
     }
 
     public void deleteUser(String id) {
-        userRepository.deleteById(id);
+        this.userRepository.deleteById(id);
     }
 
 }

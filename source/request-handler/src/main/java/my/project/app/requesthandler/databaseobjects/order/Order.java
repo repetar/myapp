@@ -1,11 +1,7 @@
 package my.project.app.requesthandler.databaseobjects.order;
 
-import my.project.app.requesthandler.databaseobjects.product.Product;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.UUID;
 
 @Document(collection = "orders")
 public class Order {

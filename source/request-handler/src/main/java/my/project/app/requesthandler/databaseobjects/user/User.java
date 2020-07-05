@@ -4,8 +4,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.UUID;
-
 // Applied at the class level to indicate this class is a candidate for mapping to the database.
 // You can specify the name of the collection where the data will be stored.
 @Document(collection = "users")

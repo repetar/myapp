@@ -18,7 +18,7 @@ public class ProductHandlerImpl implements ProductHandler {
     }
 
     public void put(final Product product) {
-        productRepository.save(product);
+        this.productRepository.save(product);
     }
 
     public List<Product> findAll() {

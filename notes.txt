@@ -62,3 +62,5 @@ install:
   kubectl create -f chart/mongodb/
   kubectl apply -f chart/mongodb/crds/mongodb.com_v1_mongodb_cr.yaml
 
+# adapt handler interfaces
+# wait for mongodb pods

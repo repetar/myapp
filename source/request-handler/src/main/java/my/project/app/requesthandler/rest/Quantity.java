@@ -1,6 +1,5 @@
 package my.project.app.requesthandler.rest;
 
-import my.project.app.requesthandler.databaseobjects.product.Product;
 import my.project.app.requesthandler.databaseobjects.quantity.QuantityHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ public class Quantity {
     @GetMapping(value= "/{productId}")
     public ResponseEntity getQuantityByProductId(@PathVariable final String productId) {
         System.out.println("trying to find by id");
-        return ResponseEntity.ok().body(quantityHandler.getQuantityByProductId(productId));
+        return ResponseEntity.ok().body(this.quantityHandler.getQuantityByProductId(productId));
 
     }
 
