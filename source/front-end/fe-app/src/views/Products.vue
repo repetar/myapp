@@ -34,48 +34,36 @@ export default {
     },
     methods:{
         async getProducts(){
-        let response = await axios.get('http://10.0.2.15:32134/products/')
-        let data = response.data
-        let pretty = JSON.stringify(data)
-        this.productlist = data
-        console.log("#####################################################")
-        console.log(response)
-        console.log("#####################################################")
-        console.log(data)
-        console.log("#####################################################")
-        console.log(pretty)
-        for (var i=0; i<pretty.length; i++){
-            var on = pretty[i]
-            console.log("name " + on.productName )
-        }
+            let response = await axios.get('http://10.0.2.15:32134/products/')
+            let data = response.data
+            let pretty = JSON.stringify(data)
+            this.productlist = data
+            for (var i=0; i<pretty.length; i++){
+                var on = pretty[i]
+                console.log("name " + on.productName )
+            }
         },
         async order(id){
 
-            console.log("ordering id: " + id)
-            let ob ={
-            "orderDate":new Date().toLocaleString(),
-            "userId":this.$store.getters.userId,
-            "productId":id,
-            }
-
-            let response = await axios.post('http://10.0.2.15:32134/orders/', ob)
-            if (response.data == "Product is out of stock!"){
-                this.$router.replace({name: "OutOfStock"} );
-            } else if (response.data == "Order creation failed."){
-                this.$router.replace({name: "OrderFailed"} );
+            if (this.$store.getters.loginState != true){
+              this.$router.replace({name: "UserLogin"} );
             } else{
-                let data = response.data
-                let pretty = JSON.stringify(data)
-                console.log("#####################################################")
-                console.log(response)
-                console.log("#####################################################")
-                console.log(data)
-                console.log("#####################################################")
-                console.log(pretty)
-                this.$router.replace({name: "OrderSuccesfull"} );
+
+              let ob ={
+              "orderDate":new Date().toLocaleString(),
+              "userId":this.$store.getters.userId,
+              "productId":id,
+              }
+
+              let response = await axios.post('http://10.0.2.15:32134/orders/', ob)
+              if (response.data == "Product is out of stock!"){
+                  this.$router.replace({name: "OutOfStock"} );
+              } else if (response.data == "Order creation failed."){
+                  this.$router.replace({name: "OrderFailed"} );
+              } else{
+                  this.$router.replace({name: "OrderSuccesfull"} );
+              }
             }
-
-
         }
     }
 }

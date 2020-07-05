@@ -63,6 +63,7 @@ public class Orders {
         try {
             orderHandler.newOrder(order);
         } catch (OutOfStockException e) {
+            System.out.println("Product is out of stock");
             return ResponseEntity.ok().body("Product is out of stock!");
         } catch (MongoTransactionException e){
             return ResponseEntity.ok().body("Order creation failed.");

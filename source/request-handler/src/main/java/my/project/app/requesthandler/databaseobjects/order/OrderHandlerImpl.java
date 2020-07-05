@@ -59,20 +59,18 @@ public class OrderHandlerImpl implements  OrderHandler {
     @Transactional
     public void newOrder(final Order order) throws OutOfStockException {
         Quantity quantity = quantityHandler.getQuantityByProductId(order.getProductId());
-        if (quantity.getAvailableQuantity() > 1 ) {
+        // update product quantity
+        System.out.println("available quantity: "  + quantity.getAvailableQuantity() + " for id: " + quantity.getId());
+        if (quantity.getAvailableQuantity() > 1) {
+            quantity.setAvailableQuantity(quantity.getAvailableQuantity() -1);
 
-            // update product quantity
-            System.out.println("available quantity: "  + quantity.getAvailableQuantity() + " for id: " + quantity.getId());
-            if (quantity.getAvailableQuantity() > 1) {
-                quantity.setAvailableQuantity(quantity.getAvailableQuantity() -1);
-
-            } else {
-                throw  new OutOfStockException("Product is out of stock");
-            }
-
-            quantityHandler.put(quantity);
-            orderRepository.save(order);
+        } else {
+            throw new OutOfStockException("Product is out of stock");
         }
+
+        quantityHandler.put(quantity);
+        orderRepository.save(order);
+
 
     }
     // decrease product availability count if at least 1

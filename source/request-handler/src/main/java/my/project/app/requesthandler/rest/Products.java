@@ -6,6 +6,7 @@ import my.project.app.requesthandler.databaseobjects.product.ProductHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.user.User;
 import my.project.app.requesthandler.databaseobjects.user.UserHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,8 +39,14 @@ public class Products {
 
     @PostMapping("/")
     public ResponseEntity<String> putProduct(@RequestBody final Product product) {
-        productHandler.put(product);
-        System.out.println("post product info: " + product.getId() + " : " + product.getProductDescription());
-        return ResponseEntity.ok().body("Added product id: " + product.getId());
+        try {
+            productHandler.put(product);
+            System.out.println("post product info: " + product.getId() + " : " + product.getProductDescription());
+            return ResponseEntity.ok().body("Added product id: " + product.getId());
+
+        } catch (DuplicateKeyException e) {
+            return ResponseEntity.ok().body("A product with the given name already exists");
+        }
+
     }
 }

@@ -1,7 +1,5 @@
 <template>
   <div class="hello">
-
-
     <input v-model="firstName" placeholder="firstName">
     <br/>
     <input v-model="lastName" placeholder="lastName">
@@ -12,8 +10,9 @@
     <br/>
     <input type="password" name="password" v-model="password" placeholder="Password" />
     <br/>
-    <button v-on:click="postUser()">postUser</button>
+    <button v-on:click="postUser()">Create User</button>
     <br/>
+    <h3 v-if="this.emailtaken">Email address already in use.</h3>
   </div>
 </template>
 
@@ -25,7 +24,12 @@ export default {
   name: 'App',
   data() {
       return {
-
+        emailtaken:false,
+        firstName: '',
+        lastName: '',
+        email: '',
+        address: '',
+        password: ''
       }
   },
 
@@ -40,17 +44,16 @@ export default {
     }
 
     let response = await axios.post('http://10.0.2.15:32134/users/', ob)
-    let data = response.data
-    let pretty = JSON.stringify(data)
-    this.textboxmessage = pretty
-    console.log("#####################################################")
-    console.log(response)
-    console.log("#####################################################")
-    console.log(data)
-    console.log("#####################################################")
-    console.log(pretty)
-    this.textboxmessage = pretty
-    this.$router.push('UserLogin')
+    if (response.data == "email taken"){
+      this.emailtaken=true
+
+    }else{
+      let data = response.data
+      this.emailtaken=false
+      this.$store.commit('saveUserLogged', data)
+      this.$router.push('Home')
+    }
+
 
     }
   }

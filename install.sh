@@ -58,7 +58,7 @@ function main() {
 
   if [[ $? -ne 1 ]];
   then
-    echo "Namespace exists. Provide non-existing namespace"
+    echo "Namespace exists. Provide non-existing namespace name. We don't want to delete any of your work."
     exit 1
   fi
 
@@ -79,7 +79,7 @@ function main() {
   clusterip=$(kubectl get svc fe-service -o jsonpath='{.spec.clusterIP}' --namespace ${NAMESPACE})
 
   echo  "######################################################################################"
-  echo  "Application succesfully deployed. You can access the product page on ${clusterip}:8080"
+  echo  "Application succesfully deployed. You can access the product page on ${clusterip}:8080 once all the PODs are up."
 
 
 }

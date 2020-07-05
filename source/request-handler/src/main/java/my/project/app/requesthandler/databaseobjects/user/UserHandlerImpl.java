@@ -2,7 +2,10 @@ package my.project.app.requesthandler.databaseobjects.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
 
@@ -13,6 +16,9 @@ public class UserHandlerImpl implements UserHandler {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Autowired
     public UserHandlerImpl() {
@@ -27,8 +33,6 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     public User findById(final String id) {
-
-        System.out.println("finding user by id");
         return this.userRepository.findById(id).get();
     }
 
@@ -38,7 +42,10 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        Query query = new Query();
+        query.addCriteria(Criteria.where("email").is(email));
+        mongoTemplate.findOne(query, User.class, "users");
+        return mongoTemplate.findOne(query, User.class);
 
     }
 

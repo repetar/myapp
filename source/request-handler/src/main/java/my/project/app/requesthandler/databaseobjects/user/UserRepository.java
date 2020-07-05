@@ -8,6 +8,4 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     // method names must follow attribute names
 
-    User findByEmail(final String email);
-
 }

@@ -1,9 +1,5 @@
 package my.project.app.requesthandler;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import my.project.app.requesthandler.databaseobjects.order.Order;
 import my.project.app.requesthandler.databaseobjects.order.OrderHandlerImpl;
-import my.project.app.requesthandler.databaseobjects.order.OrderStatus;
-import my.project.app.requesthandler.databaseobjects.product.ProductHandler;
 import my.project.app.requesthandler.databaseobjects.product.ProductHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.quantity.Quantity;
 import my.project.app.requesthandler.databaseobjects.quantity.QuantityHandlerImpl;
@@ -17,6 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.dao.DuplicateKeyException;
 
 @SpringBootApplication(exclude={MongoAutoConfiguration.class})
 @ComponentScan
@@ -46,51 +43,47 @@ public class RequestHandler implements CommandLineRunner {
     }
 
     public final void run(final String... args) throws Exception {
-/*
-        System.out.println("putting user");
-        User myUser = new User("petar1", "tomic", "989898", "hrv v", "password");
-        this.uh.put(myUser);
 
-        System.out.println("getting user");
-        User newUser = this.uh.findById(myUser.getId());
+        System.out.println("Adding example user");
+        User myUser = new User("Michael", "Michaels", "michael@gmail.com", "Park avenue 1", "Michael");
 
-        System.out.println("name and surname got" + newUser.getFirstName() + " " + newUser.getLastName());
+        try {
+            this.uh.put(myUser);
 
-        User n = this.uh.findUser(newUser);
-        System.out.println("n lastname: " + n.getLastName());
+        } catch (DuplicateKeyException e) {
+            System.out.println("email already in use:" + e);
 
-        ////////////////////////////////////////////////
-
-        Product product = new Product("first product", 765.98, "some category", "some descripton", new Quantity(654765d, 122d));
-        this.ph.put(product);
-
-        System.out.println("found description: " + this.ph.findById(product.getId()).getProductDescription());
-        System.out.println("again: " + this.ph.findProduct(product).getProductDescription());
-
-        ////////////////////////////////////////////////
-
-        Order oo = new Order("878765",
-                OrderStatus.IN_PROGRESS,
-                "fff",
-                "fff",
-                n.getId(),
-                product.getId());
-
-        this.oh.put(oo);
-        System.out.println("get order :" + this.oh.findById(oo.getId()).getDeliveryDate());
-        System.out.println("get user by user id :" + this.uh.findById(newUser.getId()).getFirstName());
-        System.out.println("get user by id :" + this.uh.findById(newUser.getId()).getFirstName());
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(objectMapper.writeValueAsString(product));
-        System.out.println(objectMapper.writeValueAsString(oo));
+        }
+        User uu = uh.findByEmail(myUser.getEmail());
+        System.out.println("myuser name: " + uu.getFirstName());
 
 
+        Product alfa = new Product("Alfa Romeo Giulia", 765.98, "Cars", "Compact executive car");
+        Product fiat = new Product("Fiat 500", 432, "Cars", "Rear-engined, 4 seat");
+        Product ferrari = new Product("Ferrari Portofino", 77789, "Cars", "Sports car");
+        Product lancia = new Product("Lancia Stratos", 55678, "Cars", "Italian sorts & rally car");
+        try {
+            this.ph.put(alfa);
+            this.ph.put(fiat);
+            this.ph.put(ferrari);
+            this.ph.put(lancia);
 
-        Quantity quantity = new Quantity(654, 0, "5ef8659908e19c2c9747ebb7");
-        qh.put(quantity);
+        } catch (DuplicateKeyException e) {
+            System.out.println("Duplicate product name:" + e);
 
- */
+        }
+
+        try {
+            this.qh.put(new Quantity(345, 54, alfa.getId()));
+            this.qh.put(new Quantity(76, 54, fiat.getId()));
+            this.qh.put(new Quantity(76, 54, ferrari.getId()));
+            this.qh.put(new Quantity(0, 54, lancia.getId()));
+
+        } catch (DuplicateKeyException e) {
+            System.out.println("Duplicate product quuantity:" + e);
+
+        }
+
 
     }
 }

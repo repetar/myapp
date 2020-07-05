@@ -25,39 +25,23 @@ export default {
     methods: {
         async login() {
             if(this.input.email != "" && this.input.password != "") {
-                // post
-                   let ob ={
-                         "email":this.input.email,
-                         "password":this.input.password
-                  }
-                  let response = await axios.post('http://10.0.2.15:32134/users/login', ob)
-                  let data = response.data
-                  if (data == "success"){
-                    // get userid here
-                    console.log("user email: " + ob.email)
-                    let user = await axios.get('http://10.0.2.15:32134/users/email/' + ob.email)
-                    let data = user.data
-                    console.log("firstname:" + data.firstName)
-                    console.log("login state: " + this.$store.getters.loginState)
-                    console.log("initial id: " + this.$store.getters.userId)
+
+                let ob ={
+                    "email":this.input.email,
+                    "password":this.input.password
+                }
+
+                let response = await axios.post('http://10.0.2.15:32134/users/login', ob)
+                let data = response.data
+
+                if (data.success == "succesfull"){
                     this.$store.commit('saveUserLogged', data.id)
-                    console.log("authenticated state 2: " + this.authenticated)
                     this.$router.replace({name: "Home"} );
-
-                    console.log("login state 2: " + this.$store.getters.loginState)
-
-                  } else{
-
-                    console.log("The username and / or password is incorrect");
+                } else{
                     this.loginfailed=true
-
-                  }
-             } else {
-                console.log("A username and password must be present");
-
                 }
             }
-
+         }
     }
 }
 </script>
