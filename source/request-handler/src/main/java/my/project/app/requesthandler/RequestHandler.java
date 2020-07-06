@@ -7,6 +7,8 @@ import my.project.app.requesthandler.databaseobjects.user.UserHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.product.Product;
 
 import my.project.app.requesthandler.databaseobjects.user.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +20,8 @@ import org.springframework.dao.DuplicateKeyException;
 @SpringBootApplication(exclude={MongoAutoConfiguration.class})
 @ComponentScan
 public class RequestHandler implements CommandLineRunner {
+
+    private static final Logger logger = LogManager.getLogger(RequestHandler.class);
 
     UserHandlerImpl uh;
     ProductHandlerImpl ph;
@@ -33,7 +37,7 @@ public class RequestHandler implements CommandLineRunner {
         this.ph = ph;
         this.oh = oh;
         this.qh = qh;
-        System.out.println("RequestHandler constructor");
+        logger.info("RequestHandler constructor");
     }
 
 
@@ -43,18 +47,18 @@ public class RequestHandler implements CommandLineRunner {
 
     public final void run(final String... args) throws Exception {
 
-        System.out.println("Adding example user");
+        logger.info("Adding example user");
         User myUser = new User("Michael", "Michaels", "michael@gmail.com", "Park avenue 1", "Michael");
 
         try {
             this.uh.put(myUser);
 
         } catch (DuplicateKeyException e) {
-            System.out.println("email already in use:" + e);
+            logger.info("email already in use:" + e);
 
         }
         User uu = uh.findByEmail(myUser.getEmail());
-        System.out.println("myuser name: " + uu.getFirstName());
+        logger.info("myuser name: " + uu.getFirstName());
 
 
         Product alfa = new Product("Alfa Romeo Giulia", 765.98, "Cars", "Compact executive car");
@@ -68,7 +72,7 @@ public class RequestHandler implements CommandLineRunner {
             this.ph.put(lancia);
 
         } catch (DuplicateKeyException e) {
-            System.out.println("Duplicate product name:" + e);
+            logger.info("Duplicate product name:" + e);
 
         }
 
@@ -79,7 +83,7 @@ public class RequestHandler implements CommandLineRunner {
             this.qh.put(new Quantity(0, 54, lancia.getId()));
 
         } catch (DuplicateKeyException e) {
-            System.out.println("Duplicate product quuantity:" + e);
+            logger.info("Duplicate product quuantity:" + e);
 
         }
     }

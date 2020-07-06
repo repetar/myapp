@@ -2,6 +2,8 @@ package  my.project.app.requesthandler.rest;
 
 import my.project.app.requesthandler.databaseobjects.user.UserHandlerImpl;
 import my.project.app.requesthandler.databaseobjects.user.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
@@ -13,28 +15,30 @@ import java.util.List;
 @RequestMapping("/users")
 public class Users {
 
+    private static final Logger logger = LogManager.getLogger(Users.class);
+
     @Autowired
     private UserHandlerImpl userHandler;
 
     @GetMapping(value = "/")
     public ResponseEntity<List<User>> getAllUsers() {
-        System.out.println("getting all users");
+        logger.info("getting all users");
         return ResponseEntity.ok().body(this.userHandler.findAll());
     }
 
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> getUserById(@PathVariable final String id) {
-        System.out.println("trying to find by id " + id);
+        logger.info("trying to find by id " + id);
         return ResponseEntity.ok().body(this.userHandler.findById(id));
 
     }
 
     @GetMapping(value = "/email")
     public ResponseEntity<User> getUserByEmail(@RequestBody final String email) {
-        System.out.println("trying to find by email " + email);
+        logger.info("trying to find by email " + email);
         User user = this.userHandler.findByEmail(email);
-        System.out.println("id: " + user.getId() + "  " + user.getFirstName());
+        logger.info("id: " + user.getId() + "  " + user.getFirstName());
         return ResponseEntity.ok().body(user);
     }
 
@@ -43,7 +47,7 @@ public class Users {
         try {
             this.userHandler.put(user);
         } catch (DuplicateKeyException e) {
-            System.out.println("Email already taken.");
+            logger.info("Email already taken.");
             return ResponseEntity.ok().body("email taken");
         }
         return ResponseEntity.ok().body(user.getId());
@@ -53,10 +57,10 @@ public class Users {
     public ResponseEntity<LoginResult> login(@RequestBody final User user) {
         User myuser = this.userHandler.findByEmail(user.getEmail());
         if (myuser != null && myuser.getPassword().equals(user.getPassword())) {
-            System.out.println("login succesfull");
+            logger.info("login succesfull");
             return ResponseEntity.ok().body(new LoginResult("succesfull", myuser.getId()));
         } else {
-            System.out.println("login failed");
+            logger.info("login failed");
             return ResponseEntity.ok().body(new LoginResult("fail", null));
         }
     }

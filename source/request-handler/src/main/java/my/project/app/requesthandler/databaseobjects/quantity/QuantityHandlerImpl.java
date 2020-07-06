@@ -1,5 +1,8 @@
 package my.project.app.requesthandler.databaseobjects.quantity;
 
+import my.project.app.requesthandler.databaseobjects.order.OrderHandlerImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -10,6 +13,8 @@ import java.util.List;
 
 @Service
 public class QuantityHandlerImpl {
+
+    private static final Logger logger = LogManager.getLogger(QuantityHandlerImpl.class);
 
     @Autowired
     private QuantityRepository quantityRepository;
@@ -27,7 +32,7 @@ public class QuantityHandlerImpl {
         query.addCriteria(Criteria.where("productId").is(productId));
         List<Quantity> quantity = mongoTemplate.find(query, Quantity.class);
         if (quantity.size() > 1) {
-            System.out.println("problem quantity more than 1");
+            logger.info("problem quantity more than 1");
         }
         return quantity.get(0);
     }

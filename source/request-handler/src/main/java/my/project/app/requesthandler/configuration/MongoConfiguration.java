@@ -2,8 +2,11 @@ package my.project.app.requesthandler.configuration;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import my.project.app.requesthandler.RequestHandler;
 import my.project.app.requesthandler.exceptions.ExecutionFailedException;
 import my.project.app.requesthandler.utils.Constants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +18,8 @@ import java.util.List;
 
 @Configuration
 public class MongoConfiguration {
+
+    private static final Logger logger = LogManager.getLogger(MongoConfiguration.class);
 
     @Autowired
     Config config;
@@ -32,15 +37,15 @@ public class MongoConfiguration {
                 if (mongoPods.length == replicas) {
                     List serverList = new ArrayList();
                     for (InetAddress address : mongoPods) {
-                        System.out.println("adding address" + address.toString());
+                        logger.info("adding address" + address.toString());
                         serverList.add(new ServerAddress(address.getHostAddress(), Integer.parseInt(config.getMongoPort())));
                     }
                     return serverList;
                 } else {
-                    System.out.println("Waiting for mongodb to be up.");
+                    logger.info("Waiting for mongodb to be up.");
                 }
             } catch (UnknownHostException e) {
-                System.out.println("Waiting for mongodb to be up.");
+                logger.info("Waiting for mongodb to be up.");
             }
 
             try {
