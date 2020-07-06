@@ -19,7 +19,8 @@ spec:
           image: my.project.app.requesthandler:1.0.0
           ports:
             - containerPort: 8080
-          command: [ "/bin/bash", "-c", "java -cp /usr/src/app/*:/usr/src/app/dependency/* my.project.app.requesthandler.RequestHandler" ]
+          command: [ "/bin/bash", "-c", "java -cp /usr/src/app/*:/usr/src/app/dependency/*
+                                        my.project.app.requesthandler.RequestHandler" ]
           args: [ "while true; do sleep 30; done;" ]
           volumeMounts:
             - name: app-configuration

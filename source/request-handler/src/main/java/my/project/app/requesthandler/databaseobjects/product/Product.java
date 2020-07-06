@@ -1,10 +1,11 @@
 package my.project.app.requesthandler.databaseobjects.product;
 
+import my.project.app.requesthandler.utils.Constants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "products")
+@Document(collection = Constants.PRODUCT_COLLECTION)
 public class Product {
 
     @Id

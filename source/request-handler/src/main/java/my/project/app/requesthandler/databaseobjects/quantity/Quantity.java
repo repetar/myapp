@@ -1,10 +1,11 @@
 package my.project.app.requesthandler.databaseobjects.quantity;
 
+import my.project.app.requesthandler.utils.Constants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "quantity")
+@Document(collection = Constants.QUANTITY_COLLECTION)
 public class Quantity {
 
     @Id

@@ -1,12 +1,13 @@
 package my.project.app.requesthandler.databaseobjects.user;
 
+import my.project.app.requesthandler.utils.Constants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 // Applied at the class level to indicate this class is a candidate for mapping to the database.
 // You can specify the name of the collection where the data will be stored.
-@Document(collection = "users")
+@Document(collection = Constants.USER_COLLECTION)
 public class User {
 
     //Applied at the field level to mark the field used for identity purpose.
@@ -26,7 +27,6 @@ public class User {
 
     // needed for POST and deserializing json info
     public User() {
-
     }
 
     public User(final String firstName,

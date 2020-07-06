@@ -1,9 +1,10 @@
 package my.project.app.requesthandler.databaseobjects.order;
 
+import my.project.app.requesthandler.utils.Constants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "orders")
+@Document(collection = Constants.ORDERS_COLLECTION)
 public class Order {
 
     @Id
