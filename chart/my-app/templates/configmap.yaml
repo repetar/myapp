@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configuration
+data:
+  config.yaml: |
+    mongoDBInstances: {{ .Values.backend.mongoDB.replicas }}
+    mongoDBSVC: {{ .Values.backend.mongoDB.service }}

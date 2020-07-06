@@ -4,7 +4,9 @@
 
 backend:
   replicas: 1
-
+  mongoDB:
+    service: example-mongodb-svc
+    replicas: 3
 
 frontend:
   replicas: 1

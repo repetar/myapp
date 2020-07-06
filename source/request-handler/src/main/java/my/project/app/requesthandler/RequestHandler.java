@@ -24,7 +24,6 @@ public class RequestHandler implements CommandLineRunner {
     OrderHandlerImpl oh;
     QuantityHandlerImpl qh;
 
-
     @Autowired
     public RequestHandler(final UserHandlerImpl uh,
                           final ProductHandlerImpl ph,
@@ -83,7 +82,5 @@ public class RequestHandler implements CommandLineRunner {
             System.out.println("Duplicate product quuantity:" + e);
 
         }
-
-
     }
 }

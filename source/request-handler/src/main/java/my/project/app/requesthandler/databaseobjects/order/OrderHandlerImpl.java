@@ -4,6 +4,9 @@ import my.project.app.requesthandler.databaseobjects.quantity.Quantity;
 import my.project.app.requesthandler.databaseobjects.quantity.QuantityHandlerImpl;
 import my.project.app.requesthandler.exceptions.OutOfStockException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,12 +16,14 @@ import java.util.List;
 @Service
 public class OrderHandlerImpl implements  OrderHandler {
 
-
     @Autowired
     private OrderRepository orderRepository;
 
     @Autowired
     QuantityHandlerImpl quantityHandler;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Autowired
     public OrderHandlerImpl() {
@@ -37,9 +42,16 @@ public class OrderHandlerImpl implements  OrderHandler {
     }
 
     public List<Order> findByUserId(final String userId) {
-        return null;
-    }
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(userId));
+        List<Order> orders = this.mongoTemplate.find(query, Order.class);
+        System.out.println("printing orders");
+        for (Order order : orders) {
+            System.out.println("uid: " + order.getUserId() + " date: " + order.getOrderDate());
 
+        }
+        return orders;
+    }
 
     @Transactional
     public void newOrder(final Order order) throws OutOfStockException {

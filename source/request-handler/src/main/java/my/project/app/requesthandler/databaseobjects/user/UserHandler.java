@@ -12,5 +12,5 @@ public interface UserHandler {
 
     void deleteUser(String id);
 
-
+    User findByEmail(String email);
 }

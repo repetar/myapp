@@ -21,3 +21,11 @@ spec:
             - containerPort: 8080
           command: [ "/bin/bash", "-c", "java -cp /usr/src/app/*:/usr/src/app/dependency/* my.project.app.requesthandler.RequestHandler" ]
           args: [ "while true; do sleep 30; done;" ]
+          volumeMounts:
+            - name: app-configuration
+              mountPath: /usr/src/app/config
+
+      volumes:
+        - name: app-configuration
+          configMap:
+            name: app-configuration

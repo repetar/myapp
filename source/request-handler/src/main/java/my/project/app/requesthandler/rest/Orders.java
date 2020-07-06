@@ -5,9 +5,6 @@ import my.project.app.requesthandler.databaseobjects.order.OrderHandlerImpl;
 import my.project.app.requesthandler.exceptions.OutOfStockException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.MongoTransactionException;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +16,6 @@ public class Orders {
 
     @Autowired
     private OrderHandlerImpl orderHandler;
-
-    @Autowired
-    private MongoTemplate mongoTemplate;
 
     @GetMapping(value="/")
     public ResponseEntity<List<Order>> getAllOrders() {
@@ -39,16 +33,8 @@ public class Orders {
     @GetMapping(value= "/user/{userId}")
     public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable final String userId) {
         System.out.println("trying to find orders by user id");
-        Query query = new Query();
-        query.addCriteria(Criteria.where("userId").is(userId));
-        List<Order> orders = this.mongoTemplate.find(query, Order.class);
-        System.out.println("printing orders");
-        for (Order order : orders) {
-            System.out.println("uid: " + order.getUserId() + " date: " + order.getOrderDate());
-
-        }
+        List<Order> orders = this.orderHandler.findByUserId(userId);
         return ResponseEntity.ok().body(orders);
-
     }
 
     @PostMapping("/")

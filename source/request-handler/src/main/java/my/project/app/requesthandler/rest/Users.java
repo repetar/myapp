@@ -16,7 +16,6 @@ public class Users {
     @Autowired
     private UserHandlerImpl userHandler;
 
-    //  {'Access-Control-Allow-Origin': '*'}
     @GetMapping(value = "/")
     public ResponseEntity<List<User>> getAllUsers() {
         System.out.println("getting all users");
