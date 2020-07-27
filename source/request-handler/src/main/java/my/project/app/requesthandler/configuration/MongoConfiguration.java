@@ -2,7 +2,6 @@ package my.project.app.requesthandler.configuration;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
-import my.project.app.requesthandler.RequestHandler;
 import my.project.app.requesthandler.exceptions.ExecutionFailedException;
 import my.project.app.requesthandler.utils.Constants;
 import org.apache.logging.log4j.LogManager;

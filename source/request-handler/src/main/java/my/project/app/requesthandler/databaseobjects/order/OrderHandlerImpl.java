@@ -1,6 +1,5 @@
 package my.project.app.requesthandler.databaseobjects.order;
 
-import my.project.app.requesthandler.RequestHandler;
 import my.project.app.requesthandler.databaseobjects.quantity.Quantity;
 import my.project.app.requesthandler.databaseobjects.quantity.QuantityHandlerImpl;
 import my.project.app.requesthandler.exceptions.OutOfStockException;
@@ -12,7 +11,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.List;
 

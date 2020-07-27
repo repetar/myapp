@@ -1,6 +1,5 @@
 package my.project.app.requesthandler.databaseobjects.quantity;
 
-import my.project.app.requesthandler.databaseobjects.order.OrderHandlerImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

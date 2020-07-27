@@ -16,6 +16,7 @@ deployments:
     values:
       containers:
       - image: devspace
+        imagePullPolicy: Never
       service:
         ports:
         - port: 8080

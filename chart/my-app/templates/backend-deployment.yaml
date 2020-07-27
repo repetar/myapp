@@ -17,6 +17,7 @@ spec:
       containers:
         - name: request-handler
           image: my.project.app.requesthandler:1.0.0
+          imagePullPolicy: Never
           ports:
             - containerPort: 8080
           command: [ "/bin/bash", "-c", "java -Dlogging.config=/usr/src/app/config/log4j2.xml -cp /usr/src/app/*:/usr/src/app/dependency/*

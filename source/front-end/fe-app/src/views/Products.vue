@@ -34,7 +34,7 @@ export default {
     },
     methods:{
         async getProducts(){
-            let response = await axios.get('http://10.0.2.15:32134/products/')
+            let response = await axios.get('http://192.168.0.3:32134/products/')
             let data = response.data
             let pretty = JSON.stringify(data)
             this.productlist = data
@@ -55,7 +55,7 @@ export default {
               "productId":id,
               }
 
-              let response = await axios.post('http://10.0.2.15:32134/orders/', ob)
+              let response = await axios.post('http://192.168.0.3:32134/orders/', ob)
               if (response.data == "Product is out of stock!"){
                   this.$router.replace({name: "OutOfStock"} );
               } else if (response.data == "Order creation failed."){

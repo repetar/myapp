@@ -11,7 +11,7 @@ Usage:
 
   This script is used to build and upload source images.
   Options:
-    --install <namespace>: Install mongodb and application in the given nmespace.
+    --namespace <namespace>: Install mongodb and application in the given nmespace.
     --help  | -h : help
 
 EOF

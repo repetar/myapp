@@ -2,7 +2,6 @@ package my.project.app.requesthandler.rest;
 
 import my.project.app.requesthandler.databaseobjects.order.Order;
 import my.project.app.requesthandler.databaseobjects.order.OrderHandlerImpl;
-import my.project.app.requesthandler.databaseobjects.quantity.QuantityHandlerImpl;
 import my.project.app.requesthandler.exceptions.OutOfStockException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

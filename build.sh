@@ -3,8 +3,6 @@
 
 function main() {
 
-  parse_arguments $@
-
   mvn clean package
 
   docker build -t my.project.app.requesthandler:1.0.0 source/request-handler/ --no-cache

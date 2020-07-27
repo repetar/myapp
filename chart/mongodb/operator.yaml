@@ -18,7 +18,7 @@ spec:
           image: quay.io/mongodb/mongodb-kubernetes-operator:0.0.6
           command:
           - mongodb-kubernetes-operator
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
             - name: WATCH_NAMESPACE
               valueFrom:

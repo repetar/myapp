@@ -31,7 +31,7 @@ export default {
                     "password":this.input.password
                 }
 
-                let response = await axios.post('http://10.0.2.15:32134/users/login', ob)
+                let response = await axios.post('http://192.168.0.3:32134/users/login', ob)
                 let data = response.data
 
                 if (data.success == "succesfull"){
