@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: fe-service
 spec:
+  type: NodePort
   selector:
     name: front-end
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8081
       targetPort: 8080

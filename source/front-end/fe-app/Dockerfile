@@ -11,9 +11,7 @@ RUN apk add --update \
 
 COPY . .
 
-EXPOSE 3000
 EXPOSE 8080
-EXPOSE 9229
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start", "dev"]
 
