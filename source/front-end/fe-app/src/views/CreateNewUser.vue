@@ -43,7 +43,7 @@ export default {
       "password":this.password
     }
 
-    let response = await axios.post('http://192.168.0.3:32134/users/', ob)
+    let response = await axios.post('http://192.168.0.2:32134/users/', ob)
     if (response.data == "email taken"){
       this.emailtaken=true
 
