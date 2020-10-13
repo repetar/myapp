@@ -24,7 +24,7 @@
         <junitparams.version>1.0.5</junitparams.version>
         <mockitocore.version>2.28.2</mockitocore.version>
         <awaitility.version>3.1.6</awaitility.version>
-        <junit.version>4.13</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <dependencies>
